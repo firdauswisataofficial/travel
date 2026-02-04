@@ -3,25 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FIRDAUS WISATA INSANI | Signature System</title>
+    <title>FIRDAUS SIGNATURE SYSTEM</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #C5A059;
-            --gold-light: #E2C28E;
-            --bg: #0A0A0A;
-            --card: #141414;
-            --input: #1F1F1F;
-            --text: #F8FAFC;
-            --text-dim: #94A3B8;
-            --danger: #FF4D4D;
-            --success: #10B981;
-        }
-
+        :root { --gold: #C5A059; --gold-l: #E2C28E; --bg: #0A0A0A; --card: #141414; --input: #1F1F1F; --text: #F8FAFC; --text-dim: #94A3B8; --success: #10B981; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-        /* --- LOGIN --- */
+        /* LOGIN */
         #loginScreen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 10000; }
         .login-card { width: 90%; max-width: 340px; text-align: center; }
         .login-card h1 { font-size: 28px; font-weight: 800; letter-spacing: 5px; margin-bottom: 5px; }
@@ -31,88 +20,55 @@
 
         #mainContent { display: none; padding: 20px; animation: fadeIn 0.8s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
         .container { max-width: 1200px; margin: 0 auto; }
 
-        /* --- NAVIGATION --- */
+        /* NAV & DASHBOARD */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #222; margin-bottom: 40px; }
         .brand-name { font-weight: 800; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; }
         .brand-name span { color: var(--gold); }
-
-        /* --- ADMIN PANEL --- */
         .glass-card { background: var(--card); border: 1px solid #282828; border-radius: 28px; padding: 25px; margin-bottom: 40px; }
-        .section-tag { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
-        
-        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
         .input-group { display: flex; flex-direction: column; gap: 6px; }
         .input-group label { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; }
         .input-group input { background: var(--input); border: 1px solid #333; padding: 12px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
-        .input-group input:focus { border-color: var(--gold); }
+        
+        .summary-bar { margin-top: 30px; background: #000; padding: 20px; border-radius: 18px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; border-left: 5px solid var(--gold); }
+        .summary-info h4 { font-size: 9px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
+        .summary-info p { font-size: 22px; font-weight: 800; color: var(--gold-l); }
 
-        .summary-bar { margin-top: 30px; background: #000; padding: 20px; border-radius: 18px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
-        .summary-info p { font-size: 22px; font-weight: 800; color: var(--gold-light); }
-
-        /* --- PACKAGE GRID (HORIZONTAL SCROLL) --- */
-        .package-grid { 
-            display: flex; 
-            gap: 20px; 
-            overflow-x: auto; 
-            padding-bottom: 20px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        .package-grid::-webkit-scrollbar { height: 4px; }
-        .package-grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
-
-        .package-card { 
-            flex: 0 0 320px; 
-            scroll-snap-align: start;
-            background: var(--card); 
-            border-radius: 28px; 
-            border: 1px solid #282828; 
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
+        /* PACKAGE GRID SCROLL */
+        .package-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 25px; scroll-snap-type: x mandatory; }
+        .package-card { flex: 0 0 320px; scroll-snap-align: start; background: var(--card); border-radius: 28px; border: 2px solid #282828; overflow: hidden; display: flex; flex-direction: column; transition: 0.4s; }
         .pkg-header { padding: 20px; text-align: center; background: #1a1a1a; border-bottom: 1px solid #222; }
-        .pkg-header h3 { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: var(--gold); }
+        .pkg-header h3 { font-size: 14px; font-weight: 800; color: var(--gold); letter-spacing: 2px; }
         .pkg-body { padding: 25px; flex-grow: 1; }
 
-        /* --- PRICING BOX --- */
+        /* PRICING */
         .price-box { margin-bottom: 20px; }
         .price-label-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px; font-weight: 700; color: var(--text-dim); }
         .price-input-field { background: #000; border: 1px solid #333; border-radius: 14px; padding: 10px 15px; display: flex; align-items: center; }
         .price-input-field input { background: transparent; border: none; color: white; font-size: 20px; font-weight: 800; width: 100%; outline: none; }
-        .price-footer { display: flex; justify-content: space-between; margin-top: 5px; font-size: 10px; }
-        .diff-tag { color: var(--success); font-weight: 700; }
+        .diff-tag { color: var(--success); font-weight: 700; font-size: 10px; }
 
-        .btn { padding: 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; border: none; transition: 0.3s; text-align: center; display: block; width: 100%; text-decoration: none; margin-top: 10px; }
+        .btn { padding: 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; border: none; text-align: center; width: 100%; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: black; }
         .btn-outline { background: transparent; border: 1px solid #444; color: white; }
 
-        .snk-text { font-size: 10px; color: #555; margin-top: 20px; line-height: 1.4; border-top: 1px solid #222; padding-top: 15px; }
-
-        /* --- DESKTOP ADAPTATION --- */
-        @media (min-width: 1024px) {
-            .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
-            .package-card { flex: none; }
-        }
-
-        /* --- PRINT --- */
+        @media (min-width: 1024px) { .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; } .package-card { flex: none; } }
+        
+        /* PRINT */
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; color: black !important; }
             .package-grid { display: block !important; }
             .package-card { display: none; width: 100% !important; border: none !important; }
             .package-card.print-active { display: block !important; }
-            .pkg-header { background: white !important; border-bottom: 3px solid black !important; }
-            .pkg-header h3 { font-size: 28px !important; color: black !important; }
+            .pkg-header { background: white !important; border-bottom: 3px solid black !important; text-align: left; }
+            .pkg-header h3 { font-size: 32px !important; color: black !important; }
             .price-input-field { border-bottom: 2px solid #eee !important; }
-            .price-input-field input { color: black !important; font-size: 32px !important; text-align: right !important; }
+            .price-input-field input { color: black !important; font-size: 36px !important; text-align: right !important; }
             .brand-pdf { display: block !important; text-align: center; margin-bottom: 30px; }
-            .brand-pdf h1 { font-size: 36px; font-weight: 900; }
-            .meta-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border: 1px solid #eee; padding: 20px; border-radius: 10px; margin-top: 20px; font-size: 14px; text-align: left; }
+            .meta-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border: 1px solid #eee; padding: 20px; border-radius: 10px; font-size: 14px; }
         }
         .brand-pdf { display: none; }
     </style>
@@ -120,47 +76,34 @@
 <body>
 
 <div id="loginScreen">
-    <div class="login-card">
-        <h1>FIRDAUS</h1>
-        <p>Signature System</p>
-        <input type="password" id="passInput" placeholder="Password Admin">
-        <button onclick="doLogin()">MASUK SISTEM</button>
-    </div>
+    <div class="login-card"><h1>FIRDAUS</h1><p>Signature System</p><input type="password" id="passInput" placeholder="Password"><button onclick="doLogin()">MASUK</button></div>
 </div>
 
 <div id="mainContent">
     <div class="container">
-        <nav class="no-print">
-            <div class="brand-name">FIRDAUS <span>WISATA INSANI</span></div>
-            <button class="btn btn-outline" style="width:auto; margin:0; padding: 5px 15px;" onclick="location.reload()">KELUAR</button>
-        </nav>
+        <nav class="no-print"><div class="brand-name">FIRDAUS <span>WISATA</span></div><button class="btn btn-outline" style="width:auto; margin:0;" onclick="location.reload()">KELUAR</button></nav>
 
         <div class="glass-card no-print">
-            <span class="section-tag">Input Data Utama</span>
+            <span style="font-size:10px; color:var(--gold); font-weight:700; letter-spacing:2px; display:block; margin-bottom:15px;">DATA MASTER</span>
             <div class="input-grid">
-                <div class="input-group" style="grid-column: span 2;"><label>Jamaah</label><input type="text" id="cName" oninput="run()"></div>
+                <div class="input-group" style="grid-column: span 2;"><label>Nama Jamaah</label><input type="text" id="cName" oninput="run()"></div>
                 <div class="input-group" style="grid-column: span 2;"><label>Maskapai</label><input type="text" id="airline" oninput="run()"></div>
-                <div class="input-group"><label>Pax</label><input type="number" id="paxCount" value="1" oninput="run()"></div>
-                <div class="input-group"><label>Kurs $</label><input type="number" id="kurs" placeholder="15850" oninput="run()"></div>
-                <div class="input-group"><label>Tiket IDR</label><input type="number" id="tiket" oninput="run()"></div>
-                <div class="input-group"><label>Visa $</label><input type="number" id="visa" value="185" oninput="run()"></div>
+                <div class="input-group"><label>Jumlah Pax</label><input type="number" id="paxCount" value="1" oninput="run()"></div>
+                <div class="input-group"><label>Kurs USD</label><input type="number" id="kurs" placeholder="15850" oninput="run()"></div>
+                <div class="input-group"><label>Tiket Pesawat</label><input type="number" id="tiket" oninput="run()"></div>
+                <div class="input-group"><label>Visa (USD)</label><input type="number" id="visa" value="185" oninput="run()"></div>
                 <div class="input-group"><label>Makkah (N)</label><input type="number" id="nM" value="4" oninput="run()"></div>
                 <div class="input-group"><label>Madinah (N)</label><input type="number" id="nD" value="3" oninput="run()"></div>
-                <div class="input-group"><label>Perlengkapan</label><input type="number" id="perlengkapan" value="1500000" oninput="run()"></div>
+                <div class="input-group" style="grid-column: span 2;"><label>Perlengkapan (IDR)</label><input type="number" id="perlengkapan" value="1500000" oninput="run()"></div>
             </div>
             <div class="summary-bar">
-                <div class="summary-info"><label style="font-size: 9px; color: #666;">ESTIMASI PROFIT KANTOR</label><p id="totalProfitDisplay">Rp 0</p></div>
-                <button class="btn btn-outline" style="width:auto; border-color:#300; color:#f55;" onclick="clearAll()">RESET</button>
+                <div class="summary-info"><h4>Net Profit (Paket Terpilih)</h4><p id="totalProfitDisplay">Rp 0</p></div>
+                <button class="btn btn-outline" style="width:auto; color:#f55; border-color:#300;" onclick="clearAll()">RESET</button>
             </div>
         </div>
 
         <div class="package-grid">
-            <div class="brand-pdf">
-                <h1>FIRDAUS WISATA INSANI</h1>
-                <p style="letter-spacing: 5px; color: #C5A059; text-transform: uppercase;">Official Quote Penawaran</p>
-                <div class="meta-pdf" id="pdfMeta"></div>
-            </div>
-
+            <div class="brand-pdf"><h1>FIRDAUS WISATA INSANI</h1><p>Official Quote Penawaran</p><div class="meta-pdf" id="pdfMeta"></div></div>
             <script>
                 const paks = ['Bronze', 'Silver', 'Platinum'];
                 paks.forEach((name, i) => {
@@ -168,36 +111,34 @@
                     <div class="package-card" id="card-${i}">
                         <div class="pkg-header"><h3>${name} PACKAGE</h3></div>
                         <div class="pkg-body">
-                            <div class="no-print" style="margin-bottom: 20px; background: #000; padding: 15px; border-radius: 15px; border: 1px solid #222;">
-                                <div class="input-group"><label>Hotel Makkah</label><input type="text" id="hm${i}" oninput="run()" style="margin-bottom:8px"></div>
-                                <div class="input-group"><label>Hotel Madinah</label><input type="text" id="hd${i}" oninput="run()" style="margin-bottom:12px"></div>
+                            <div class="no-print" style="margin-bottom:20px; background:#000; padding:15px; border-radius:15px; border:1px solid #222;">
+                                <div class="input-group"><label>Hotel Mak (SAR/Kmr)</label><input type="number" id="smak_${i}" oninput="run()" style="margin-bottom:8px"></div>
+                                <div class="input-group"><label>Hotel Mad (SAR/Kmr)</label><input type="number" id="smad_${i}" oninput="run()" style="margin-bottom:12px"></div>
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                                    <div class="input-group"><label>SAR Mak</label><input type="number" id="smak_${i}" oninput="run()"></div>
-                                    <div class="input-group"><label>SAR Mad</label><input type="number" id="smad_${i}" oninput="run()"></div>
                                     <div class="input-group"><label>Base Profit</label><input type="number" id="pf_${i}" oninput="run()"></div>
-                                    <div class="input-group"><label>Addon</label><input type="number" id="hr_${i}" oninput="run()"></div>
+                                    <div class="input-group"><label>Handling/LA</label><input type="number" id="hr_${i}" oninput="run()"></div>
                                 </div>
                             </div>
                             <div class="price-box">
-                                <div class="price-label-row">QUAD ROOM <span>/PAX</span></div>
+                                <div class="price-label-row">QUAD ROOM <span>(Isi 4)</span></div>
                                 <div class="price-input-field"><input type="text" id="q_${i}" oninput="manual(${i})"></div>
                                 <div class="price-footer no-print"><span style="color:#444">HPP: <b id="sysQ_${i}">0</b></span><span class="diff-tag" id="diffQ_${i}">+0</span></div>
                             </div>
                             <div class="price-box">
-                                <div class="price-label-row">TRIPLE ROOM <span>/PAX</span></div>
+                                <div class="price-label-row">TRIPLE ROOM <span>(Isi 3)</span></div>
                                 <div class="price-input-field"><input type="text" id="t_${i}" oninput="manual(${i})"></div>
                                 <div class="price-footer no-print"><span style="color:#444">HPP: <b id="sysT_${i}">0</b></span><span class="diff-tag" id="diffT_${i}">+0</span></div>
                             </div>
                             <div class="price-box">
-                                <div class="price-label-row">DOUBLE ROOM <span>/PAX</span></div>
+                                <div class="price-label-row">DOUBLE ROOM <span>(Isi 2)</span></div>
                                 <div class="price-input-field"><input type="text" id="d_${i}" oninput="manual(${i})"></div>
                                 <div class="price-footer no-print"><span style="color:#444">HPP: <b id="sysD_${i}">0</b></span><span class="diff-tag" id="diffD_${i}">+0</span></div>
                             </div>
-                            <div class="snk-text">
-                                • Termasuk: Tiket PP, Visa, Hotel, Handling.<br>• Harga mengikuti kurs saat pelunasan.<br>• Pelunasan H-30 sebelum keberangkatan.
+                            <div class="no-print">
+                                <button class="btn btn-outline" id="selBtn_${i}" onclick="selectPkg(${i})" style="border-color:var(--gold); color:var(--gold)">PILIH PAKET INI</button>
+                                <button class="btn btn-gold" onclick="printSingle(${i})">CETAK PDF</button>
+                                <button class="btn btn-outline" style="color:#25D366; border-color:#25D366;" onclick="wa(${i})">KIRIM WA</button>
                             </div>
-                            <button class="btn btn-gold no-print" onclick="printSingle(${i})">SIMPAN PDF</button>
-                            <button class="btn btn-outline no-print" style="color:#25D366; border-color:#25D366;" onclick="wa(${i})">WHATSAPP</button>
                         </div>
                     </div>
                     `);
@@ -210,31 +151,30 @@
 <script>
     const PASS_DEF = "firdaus2024";
     let calc = [{}, {}, {}];
+    let selectedIdx = null;
 
     function doLogin() {
         if(document.getElementById('passInput').value === PASS_DEF) {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-        } else { alert("Akses Ditolak."); }
+        } else { alert("Password Salah."); }
     }
 
     function parseRp(val) { return parseFloat(val.toString().replace(/[^0-9]/g, "")) || 0; }
     function fmt(v) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v); }
 
     function run() {
-        const k = parseFloat(document.getElementById('kurs').value) || 0;
-        const s = k / 3.75; 
+        const kUSD = parseFloat(document.getElementById('kurs').value) || 0;
+        const kSAR = kUSD / 3.75; 
         const tkt = parseFloat(document.getElementById('tiket').value) || 0;
-        const vsa = (parseFloat(document.getElementById('visa').value) || 0) * k;
+        const vsa = (parseFloat(document.getElementById('visa').value) || 0) * kUSD;
         const prl = parseFloat(document.getElementById('perlengkapan').value) || 0;
         const nM = parseFloat(document.getElementById('nM').value) || 0;
         const nD = parseFloat(document.getElementById('nD').value) || 0;
 
         document.getElementById('pdfMeta').innerHTML = `
             <div><b>Jamaah:</b> ${document.getElementById('cName').value || "-"}</div>
-            <div><b>Airlines:</b> ${document.getElementById('airline').value || "-"}</div>
             <div><b>Pax:</b> ${document.getElementById('paxCount').value} Orang</div>
-            <div><b>Update:</b> ${new Date().toLocaleDateString('id-ID')}</div>
         `;
 
         for(let i=0; i<3; i++) {
@@ -242,12 +182,14 @@
             const smd = parseFloat(document.getElementById('smad_'+i).value) || 0;
             const pf = parseFloat(document.getElementById('pf_'+i).value) || 0;
             const hr = parseFloat(document.getElementById('hr_'+i).value) || 0;
-            const hIDR = ((smk * nM) + (smd * nD)) * s;
-            const hpp = tkt + vsa + prl + hr;
 
-            calc[i].sysQ = hpp + (hIDR / 4) + pf;
-            calc[i].sysT = hpp + (hIDR / 3) + pf;
-            calc[i].sysD = hpp + (hIDR / 2) + pf;
+            const totalHotelSAR = (smk * nM) + (smd * nD);
+            const tetap = tkt + vsa + prl + hr + pf;
+
+            // RUMUS AKURAT: Tetap (Tiket+Visa+Prl+Handle+BaseProfit) + (Hotel/Pax)
+            calc[i].sysQ = tetap + ((totalHotelSAR / 4) * kSAR);
+            calc[i].sysT = tetap + ((totalHotelSAR / 3) * kSAR);
+            calc[i].sysD = tetap + ((totalHotelSAR / 2) * kSAR);
             calc[i].basePf = pf;
 
             document.getElementById('sysQ_'+i).innerText = fmt(calc[i].sysQ);
@@ -261,26 +203,39 @@
         }
     }
 
+    function selectPkg(idx) {
+        selectedIdx = idx;
+        document.querySelectorAll('.package-card').forEach((c, i) => {
+            const btn = document.getElementById('selBtn_'+i);
+            if(i === idx) {
+                c.style.borderColor = 'var(--gold)';
+                btn.innerText = "AKTIF"; btn.style.background = 'var(--gold)'; btn.style.color = 'black';
+            } else {
+                c.style.borderColor = '#282828';
+                btn.innerText = "PILIH PAKET INI"; btn.style.background = 'transparent'; btn.style.color = 'var(--gold)';
+            }
+        });
+        updateProfit();
+    }
+
     function manual(i) {
         const qJ = parseRp(document.getElementById('q_'+i).value);
         const tJ = parseRp(document.getElementById('t_'+i).value);
         const dJ = parseRp(document.getElementById('d_'+i).value);
-
         document.getElementById('diffQ_'+i).innerText = "+" + fmt(qJ - calc[i].sysQ);
         document.getElementById('diffT_'+i).innerText = "+" + fmt(tJ - calc[i].sysT);
         document.getElementById('diffD_'+i).innerText = "+" + fmt(dJ - calc[i].sysD);
-        updateTotalProfit();
+        updateProfit();
     }
 
-    function updateTotalProfit() {
-        let total = 0;
-        const px = parseFloat(document.getElementById('paxCount').value) || 1;
-        for(let i=0; i<3; i++) {
-            const qJ = parseRp(document.getElementById('q_'+i).value);
-            const pfQ = (qJ - calc[i].sysQ) + calc[i].basePf;
-            total += (pfQ / 3) * px; // Rata-rata profit per paket
-        }
-        document.getElementById('totalProfitDisplay').innerText = fmt(total);
+    function updateProfit() {
+        if(selectedIdx === null) return;
+        const i = selectedIdx;
+        const px = parseFloat(document.getElementById('paxCount').value) || 0;
+        const qJ = parseRp(document.getElementById('q_'+i).value);
+        // HPP Murni = Harga Sistem - Base Profit yang dimasukkan
+        const hppMurni = calc[i].sysQ - calc[i].basePf;
+        document.getElementById('totalProfitDisplay').innerText = fmt((qJ - hppMurni) * px);
     }
 
     function printSingle(id) {
@@ -290,14 +245,15 @@
     }
 
     function wa(i) {
-        const msg = `*PENAWARAN UMRAH - FIRDAUS*\n\nQUAD: ${document.getElementById('q_'+i).value}\nTRIPLE: ${document.getElementById('t_'+i).value}\nDOUBLE: ${document.getElementById('d_'+i).value}`;
+        const jam = document.getElementById('cName').value || "Bpk/Ibu";
+        const msg = `*PENAWARAN UMRAH*\nYth. ${jam}\n\nQUAD: ${document.getElementById('q_'+i).value}\nTRIPLE: ${document.getElementById('t_'+i).value}\nDOUBLE: ${document.getElementById('d_'+i).value}`;
         window.open("https://wa.me/?text=" + encodeURIComponent(msg));
     }
 
     function clearAll() {
         if(confirm("Reset semua data?")) {
             document.querySelectorAll('input').forEach(inp => { if(inp.id !== 'passInput') inp.value = ''; });
-            run();
+            selectedIdx = null; run();
         }
     }
 </script>
