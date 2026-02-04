@@ -3,39 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Firdaus Wisata - Final Fix</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Firdaus Wisata - Master System v5.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --netflix-red: #E50914; --dark-bg: #141414; --card-bg: #1F1F1F; --text-gray: #a3a3a3; --hhr-green: #46d369; }
+        :root { --netflix-red: #E50914; --dark-bg: #141414; --card-bg: #1F1F1F; --text-gray: #a3a3a3; }
+        
+        /* LOGIN SYSTEM */
         #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000; }
         .login-box { background: #111; padding: 30px; border-radius: 12px; width: 85%; max-width: 280px; text-align: center; border: 1px solid #333; }
         .login-box h1 { color: var(--netflix-red); font-weight: 900; margin: 0; font-size: 26px; }
-        .login-box input { width: 100%; padding: 12px; margin: 15px 0; background: #222; border: 1px solid #444; border-radius: 6px; color: white; text-align: center; box-sizing: border-box; }
+        .login-box input { width: 100%; padding: 12px; margin: 15px 0; background: #222; border: 1px solid #444; border-radius: 6px; color: white; text-align: center; box-sizing: border-box; font-size: 16px; }
         .login-box button { width: 100%; padding: 12px; background: var(--netflix-red); color: white; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; }
+        
+        /* LAYOUT UTAMA */
         #mainContent { display: none; }
         body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: white; margin: 0; padding: 10px; }
         .container { max-width: 1000px; margin: auto; padding-bottom: 40px; }
         .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #333; margin-bottom: 20px; }
-        .brand h1 { color: var(--netflix-red); margin: 0; font-weight: 800; font-size: 18px; text-transform: uppercase; }
+        .brand h1 { color: var(--netflix-red); margin: 0; font-weight: 800; font-size: 20px; text-transform: uppercase; }
+        
+        /* PANEL ADMIN */
         .admin-panel { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #222; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        label { display: block; font-size: 9px; color: var(--text-gray); font-weight: 600; text-transform: uppercase; margin-bottom: 3px; }
-        input.adm { background: #262626; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; width: 100%; box-sizing: border-box; font-size: 12px; }
+        .grid-admin { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        label { display: block; font-size: 10px; color: var(--text-gray); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; margin-top: 8px; }
+        input.adm { background: #262626; border: 1px solid #333; color: white; padding: 12px; border-radius: 6px; width: 100%; box-sizing: border-box; font-size: 14px; outline: none; }
+        
+        /* PANEL UBAH PASSWORD */
+        .pass-panel { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #333; }
+        .pass-row { display: flex; gap: 8px; }
+
+        /* KARTU PAKET */
         .pkg-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         .pkg-card { background: var(--card-bg); border-radius: 10px; border: 1px solid #2a2a2a; overflow: hidden; }
-        .pkg-head { padding: 15px; background: #252525; border-bottom: 4px solid var(--netflix-red); font-weight: 800; text-transform: uppercase; font-size: 13px; }
+        .pkg-head { padding: 15px; background: #252525; border-bottom: 4px solid var(--netflix-red); font-weight: 800; text-transform: uppercase; font-size: 14px; }
         .pkg-body { padding: 15px; }
-        .price-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a2a2a; }
-        .price-row label { color: white; align-self: center; font-size: 11px; }
-        .price-row input { background: transparent; border: none; color: white; text-align: right; font-weight: 800; width: 65%; font-size: 18px; pointer-events: none; }
-        .hhr-tag { display: none; background: rgba(70,211,105,0.1); color: var(--hhr-green); padding: 5px 10px; border-radius: 4px; font-size: 9px; margin-bottom: 15px; border: 1px solid rgba(70,211,105,0.2); font-weight: 700; }
-        .show-hhr { display: inline-block; }
+        
+        .price-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #2a2a2a; }
+        .price-row label { color: white; align-self: center; font-size: 12px; margin: 0; }
+        .price-row input { background: transparent; border: none; color: white; text-align: right; font-weight: 900; width: 65%; font-size: 20px; pointer-events: none; }
+        
         .btn { padding: 12px; border-radius: 6px; border: none; font-weight: 700; font-size: 11px; text-transform: uppercase; margin-top: 10px; width: 100%; cursor: pointer; }
         .btn-red { background: var(--netflix-red); color: white; }
         .btn-wa { background: #25D366; color: white; margin-top: 8px; }
         .btn-logout { background: #333; color: white; width: auto; padding: 8px 15px; font-size: 9px; }
-        @media (min-width: 768px) { .pkg-grid { grid-template-columns: repeat(3, 1fr); } .grid { grid-template-columns: repeat(4, 1fr); } }
-        @media print { .no-print, #loginScreen { display: none !important; } #mainContent { display: block !important; } body { background: white !important; color: black !important; } .pkg-card { border: 1px solid #ddd !important; width: 100%; margin-bottom: 30px; } .price-row input, .price-row label, .brand h1 { color: black !important; } .brand h1 { color: #E50914 !important; } }
+
+        @media (min-width: 768px) { .pkg-grid { grid-template-columns: repeat(3, 1fr); } .grid-admin { grid-template-columns: repeat(4, 1fr); } }
+        @media print { .no-print, #loginScreen { display: none !important; } #mainContent { display: block !important; } body { background: white !important; color: black !important; } .pkg-card { border: 1px solid #ddd !important; } .price-row input, .price-row label { color: black !important; } }
     </style>
 </head>
 <body>
@@ -43,10 +56,10 @@
 <div id="loginScreen">
     <div class="login-box">
         <h1>FIRDAUS</h1>
-        <p style="color:white; margin-top:5px; font-size:10px;">INTERNAL QUOTE SYSTEM</p>
+        <p style="color:white; margin-top:5px; font-size:10px; letter-spacing: 2px;">SECURE ACCESS</p>
         <input type="password" id="passInput" placeholder="Password Admin">
         <button onclick="doLogin()">MASUK</button>
-        <p id="err" style="color:var(--netflix-red); font-size:10px; display:none; margin-top:12px; font-weight:700;">PASSWORD SALAH!</p>
+        <p id="err" style="color:var(--netflix-red); font-size:10px; display:none; margin-top:12px; font-weight:700;">SALAH!</p>
     </div>
 </div>
 
@@ -58,15 +71,23 @@
         </div>
 
         <div class="admin-panel no-print">
-            <div class="grid">
-                <div style="grid-column: span 2;"><label>Nama Jamaah</label><input type="text" id="cName" class="adm" placeholder="..."></div>
-                <div><label>Maskapai</label><input type="text" id="airline" class="adm" placeholder="..."></div>
-                <div><label>Kurs USD</label><input type="number" id="kurs" class="adm" value="0" oninput="run()"></div>
-                <div><label>Tiket (IDR)</label><input type="number" id="tiket" class="adm" value="0" oninput="run()"></div>
-                <div><label>Visa (USD)</label><input type="number" id="visa" class="adm" value="0" oninput="run()"></div>
-                <div><label>Makkah (Mlm)</label><input type="number" id="nM" class="adm" value="0" oninput="run()"></div>
-                <div><label>Madinah (Mlm)</label><input type="number" id="nD" class="adm" value="0" oninput="run()"></div>
-                <div><label>Perlengkapan</label><input type="number" id="perlengkapan" class="adm" value="0" oninput="run()"></div>
+            <div class="grid-admin">
+                <div style="grid-column: span 2;"><label>Nama Jamaah</label><input type="text" id="cName" class="adm"></div>
+                <div><label>Maskapai</label><input type="text" id="airline" class="adm"></div>
+                <div><label>Kurs USD</label><input type="number" id="kurs" class="adm" oninput="run()"></div>
+                <div><label>Tiket IDR</label><input type="number" id="tiket" class="adm" oninput="run()"></div>
+                <div><label>Visa USD</label><input type="number" id="visa" class="adm" oninput="run()"></div>
+                <div><label>Makkah (Mlm)</label><input type="number" id="nM" class="adm" oninput="run()"></div>
+                <div><label>Madinah (Mlm)</label><input type="number" id="nD" class="adm" oninput="run()"></div>
+                <div><label>Perlengkapan</label><input type="number" id="perlengkapan" class="adm" oninput="run()"></div>
+            </div>
+
+            <div class="pass-panel">
+                <label style="color: var(--netflix-red);">Ubah Password Sistem</label>
+                <div class="pass-row">
+                    <input type="text" id="newPass" class="adm" placeholder="Ketik Password Baru..." style="margin-top:0;">
+                    <button class="btn btn-red" style="margin-top:0; width: auto; padding: 0 20px;" onclick="setPass()">SIMPAN</button>
+                </div>
             </div>
         </div>
 
@@ -78,22 +99,17 @@
                     <div class="pkg-card">
                         <div class="pkg-head">${name} Package</div>
                         <div class="pkg-body">
-                            <div id="hhr-${i}" class="hhr-tag">🚄 TERMASUK KERETA CEPAT</div>
-                            <div class="no-print" style="background:rgba(255,255,255,0.03); padding:12px; border-radius:8px; margin-bottom:15px; border:1px solid #333;">
-                                <input type="text" id="hm${i}" class="adm" placeholder="Hotel Makkah" style="margin-bottom:8px;">
-                                <input type="text" id="hd${i}" class="adm" placeholder="Hotel Madinah" style="margin-bottom:12px;">
-                                <div class="grid">
-                                    <div><label>SAR Makkah</label><input type="number" id="m${i}" class="adm" value="0" oninput="run()"></div>
-                                    <div><label>SAR Madinah</label><input type="number" id="sd${i}" class="adm" value="0" oninput="run()"></div>
-                                </div>
-                                <div class="grid" style="margin-top:12px;">
-                                    <div><label>Profit (IDR)</label><input type="number" id="p${i}" class="adm" value="0" oninput="run()"></div>
-                                    <div><label>HHR (IDR)</label><input type="number" id="tr${i}" class="adm" value="0" oninput="run()"></div>
-                                </div>
+                            <div class="no-print" style="background:rgba(255,255,255,0.03); padding:15px; border-radius:8px; margin-bottom:15px; border:1px solid #444;">
+                                <label>Hotel Makkah</label><input type="text" id="hm${i}" class="adm">
+                                <label>Hotel Madinah</label><input type="text" id="hd${i}" class="adm">
+                                <label>SAR Makkah / Malam</label><input type="number" id="sMak_${i}" class="adm" oninput="run()">
+                                <label>SAR Madinah / Malam</label><input type="number" id="sMad_${i}" class="adm" oninput="run()">
+                                <label>Profit IDR</label><input type="number" id="pf_${i}" class="adm" oninput="run()">
+                                <label>HHR IDR</label><input type="number" id="hr_${i}" class="adm" oninput="run()">
                             </div>
-                            <div class="price-row"><label>QUAD</label><input type="text" id="q${i}" value="Rp 0" readonly></div>
-                            <div class="price-row"><label>TRIPLE</label><input type="text" id="t${i}" value="Rp 0" readonly></div>
-                            <div class="price-row"><label>DOUBLE</label><input type="text" id="d_res${i}" value="Rp 0" readonly></div>
+                            <div class="price-row"><label>QUAD</label><input type="text" id="q_${i}" value="Rp 0" readonly></div>
+                            <div class="price-row"><label>TRIPLE</label><input type="text" id="t_${i}" value="Rp 0" readonly></div>
+                            <div class="price-row"><label>DOUBLE</label><input type="text" id="d_${i}" value="Rp 0" readonly></div>
                             <button class="btn btn-red no-print" onclick="window.print()">Simpan PDF</button>
                             <button class="btn btn-wa no-print" onclick="wa(${i})">WhatsApp</button>
                         </div>
@@ -106,49 +122,55 @@
 </div>
 
 <script>
+    // EDIT DI SINI UNTUK PASSWORD PERMANEN DI SEMUA GADGET:
+    const PASS_DEFAULT = "firdaus2024";
+
     function doLogin() {
-        if(document.getElementById('passInput').value === "firdaus2024") {
+        const stored = localStorage.getItem('app_pass') || PASS_DEFAULT;
+        if(document.getElementById('passInput').value === stored) {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
         } else { document.getElementById('err').style.display = 'block'; }
     }
-    function doLogout() {
-        document.getElementById('passInput').value = "";
-        document.getElementById('mainContent').style.display = 'none';
-        document.getElementById('loginScreen').style.display = 'flex';
+
+    function setPass() {
+        const p = document.getElementById('newPass').value;
+        if(p.length < 4) { alert("Minimal 4 karakter!"); return; }
+        localStorage.setItem('app_pass', p);
+        alert("Password berhasil diubah!");
+        location.reload();
     }
+
+    function doLogout() { location.reload(); }
     function fmt(v) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v); }
     
     function run() {
         const k = parseFloat(document.getElementById('kurs').value) || 0;
         const s = k / 3.75; 
-        const t = parseFloat(document.getElementById('tiket').value) || 0;
-        const v = (parseFloat(document.getElementById('visa').value) || 0) * k;
-        const pr = parseFloat(document.getElementById('perlengkapan').value) || 0;
+        const tkt = parseFloat(document.getElementById('tiket').value) || 0;
+        const vsa = (parseFloat(document.getElementById('visa').value) || 0) * k;
+        const prl = parseFloat(document.getElementById('perlengkapan').value) || 0;
         const nM = parseFloat(document.getElementById('nM').value) || 0;
         const nD = parseFloat(document.getElementById('nD').value) || 0;
 
         for(let i=0; i<3; i++) {
-            const hM = parseFloat(document.getElementById('m'+i).value) || 0;
-            const hD = parseFloat(document.getElementById('sd'+i).value) || 0; // ID diganti jadi sd agar tidak bentrok
-            const pf = parseFloat(document.getElementById('p'+i).value) || 0;
-            const hr = parseFloat(document.getElementById('tr'+i).value) || 0;
+            const sarM = parseFloat(document.getElementById('sMak_'+i).value) || 0;
+            const sarD = parseFloat(document.getElementById('sMad_'+i).value) || 0;
+            const pf = parseFloat(document.getElementById('pf_'+i).value) || 0;
+            const hr = parseFloat(document.getElementById('hr_'+i).value) || 0;
             
-            const tag = document.getElementById('hhr-'+i);
-            hr > 0 ? tag.classList.add('show-hhr') : tag.classList.remove('show-hhr');
+            const hotelIDR = ((sarM * nM) + (sarD * nD)) * s;
+            const base = tkt + vsa + prl + pf + hr;
 
-            const totalHotelSAR = (hM * nM) + (hD * nD);
-            const baseIDR = t + v + pr + pf + hr;
-
-            document.getElementById('q'+i).value = fmt(baseIDR + (totalHotelSAR / 4) * s);
-            document.getElementById('t'+i).value = fmt(baseIDR + (totalHotelSAR / 3) * s);
-            document.getElementById('d_res'+i).value = fmt(baseIDR + (totalHotelSAR / 2) * s);
+            document.getElementById('q_'+i).value = fmt(base + (hotelIDR / 4));
+            document.getElementById('t_'+i).value = fmt(base + (hotelIDR / 3));
+            document.getElementById('d_'+i).value = fmt(base + (hotelIDR / 2));
         }
     }
 
     function wa(i) {
-        const n = document.getElementById('cName').value || "Jamaah";
-        const msg = `*PENAWARAN UMRAH - FIRDAUS*\n\nYth. *${n}*\n\n*ESTIMASI HARGA:*\nQUAD: ${document.getElementById('q'+i).value}\nTRIPLE: ${document.getElementById('t'+i).value}\nDOUBLE: ${document.getElementById('d_res'+i).value}`;
+        const n = document.getElementById('cName').value || "Bapak/Ibu";
+        const msg = `*PENAWARAN UMRAH - FIRDAUS*\n\nYth. *${n}*\n\nQUAD: *${document.getElementById('q_'+i).value}*\nTRIPLE: *${document.getElementById('t_'+i).value}*\nDOUBLE: *${document.getElementById('d_'+i).value}*`;
         window.open("https://wa.me/?text=" + encodeURIComponent(msg));
     }
 </script>
