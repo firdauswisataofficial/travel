@@ -3,119 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FIRDAUS ELITE SYSTEM v11.4</title>
+    <title>FIRDAUS ELITE v11.5 - TOTAL SYSTEM</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root { --gold: #C5A059; --gold-l: #E2C28E; --bg: #050505; --card: #111111; --input: #1A1A1A; --text: #FFFFFF; --text-dim: #888888; --success: #00FF94; --danger: #FF4D4D; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg); color: var(--text); padding-bottom: 100px; -webkit-font-smoothing: antialiased; }
+        body { background: var(--bg); color: var(--text); padding-bottom: 100px; }
 
-        /* FINANCE DASHBOARD */
-        .finance-header { background: linear-gradient(180deg, #1A1A1A 0%, #050505 100%); padding: 35px 20px; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; }
-        .main-balance { text-align: center; margin-bottom: 25px; }
-        .main-balance p { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-        .main-balance h1 { font-size: 34px; font-weight: 800; color: var(--gold); margin-top: 5px; }
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .stat-box { background: var(--card); padding: 15px; border-radius: 14px; border: 1px solid #222; }
-        .stat-box p { font-size: 8px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
-        .stat-box h2 { font-size: 15px; font-weight: 700; color: #fff; }
+        /* HEADER & DASHBOARD */
+        .finance-header { background: linear-gradient(180deg, #1A1A1A 0%, #050505 100%); padding: 30px 20px; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; }
+        .main-balance { text-align: center; margin-bottom: 20px; }
+        .main-balance h1 { font-size: 30px; font-weight: 800; color: var(--gold); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .stat-box { background: var(--card); padding: 12px; border-radius: 12px; border: 1px solid #222; }
+        .stat-box h2 { font-size: 14px; font-weight: 700; color: #fff; }
 
-        /* NAVIGATION BAR */
+        /* NAVIGATION */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; border-top: 1px solid #222; z-index: 1000; padding: 15px 0; }
         .nav-item { flex: 1; text-align: center; color: var(--text-dim); font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
         .nav-item.active { color: var(--gold); }
 
-        /* SCREENS */
         .screen { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* CARDS & INPUTS */
-        .glass-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 20px; margin-bottom: 15px; }
-        .input-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 15px; }
-        label { font-size: 9px; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
-        input, select { background: var(--input); border: 1px solid #333; padding: 14px; border-radius: 12px; color: white; outline: none; font-size: 14px; width: 100%; }
+        /* CARDS */
+        .glass-card { background: var(--card); border: 1px solid #222; border-radius: 18px; padding: 18px; margin-bottom: 15px; }
+        .pkg-card { border: 2px solid transparent; cursor: pointer; }
+        .pkg-card.active { border-color: var(--gold); background: #1a1510; }
         
-        /* TABLE STYLE */
+        .input-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+        label { font-size: 9px; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
+        input, select, textarea { background: var(--input); border: 1px solid #333; padding: 12px; border-radius: 10px; color: white; outline: none; font-size: 13px; width: 100%; }
+        
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; font-size: 9px; color: var(--text-dim); padding-bottom: 10px; border-bottom: 1px solid #222; }
-        td { padding: 15px 0; border-bottom: 1px solid #111; font-size: 13px; }
+        td { padding: 12px 0; border-bottom: 1px solid #111; font-size: 12px; }
 
-        /* BUTTONS */
-        .btn { width: 100%; padding: 16px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; margin-top: 10px; font-size: 12px; text-transform: uppercase; transition: 0.3s; }
+        .btn { width: 100%; padding: 15px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; font-size: 11px; text-transform: uppercase; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: #000; }
         .btn-wa { background: #25D366; color: #fff; }
         .btn-pdf { background: #EF4444; color: #fff; }
-        .btn-add { background: #222; color: var(--gold); border: 1px dashed var(--gold); }
-
-        .pkg-card { cursor: pointer; transition: 0.3s; }
-        .pkg-card.active { border-color: var(--gold); background: #1a1510; }
 
         #loginScreen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 10000; }
-        .leak-label { font-size: 11px; color: var(--danger); font-weight: 700; margin-top: 8px; }
     </style>
 </head>
 <body>
 
 <div id="loginScreen">
-    <div style="text-align: center; width: 85%; max-width: 320px;">
-        <h1 style="letter-spacing: 8px; font-size: 32px; color: #fff;">FIRDAUS</h1>
-        <p style="font-size: 9px; color: var(--gold); letter-spacing: 3px; margin-bottom: 40px;">SIGNATURE v11.4</p>
-        <input type="password" id="passInput" placeholder="Password Access" style="width: 100%; text-align: center; margin-bottom: 20px;">
-        <button onclick="doLogin()" class="btn btn-gold">AUTHENTICATE</button>
+    <div style="text-align: center; width: 80%; max-width: 300px;">
+        <h1 style="letter-spacing: 5px; color: #fff;">FIRDAUS</h1>
+        <p style="font-size: 9px; color: var(--gold); margin-bottom: 30px;">ULTIMATE v11.5</p>
+        <input type="password" id="passInput" placeholder="Password" style="text-align: center;">
+        <button onclick="doLogin()" class="btn btn-gold" style="margin-top:20px;">ACCESS</button>
     </div>
 </div>
 
 <div id="mainApp" style="display:none;">
     <div class="finance-header">
         <div class="main-balance">
-            <p>Estimated Net Profit</p>
+            <p style="font-size:9px; color:var(--text-dim); letter-spacing:2px;">ESTIMASI PROFIT BERSIH</p>
             <h1 id="topProfit">Rp 0</h1>
-            <div id="topLeak" class="leak-label" style="display:none;"></div>
+            <div id="topLeak" style="color:var(--danger); font-size:10px; font-weight:700; margin-top:5px;"></div>
         </div>
         <div class="stat-grid">
-            <div class="stat-box"><p>Revenue</p><h2 id="topRevenue" style="color: var(--success);">Rp 0</h2></div>
-            <div class="stat-box"><p>Cost (HPP)</p><h2 id="topHpp" style="color: var(--danger);">Rp 0</h2></div>
+            <div class="stat-box"><p style="font-size:8px; color:var(--text-dim);">OMZET</p><h2 id="topRevenue">Rp 0</h2></div>
+            <div class="stat-box"><p style="font-size:8px; color:var(--text-dim);">TOTAL HPP</p><h2 id="topHpp">Rp 0</h2></div>
         </div>
     </div>
 
     <div id="screen-finance" class="screen active">
-        <h3 style="margin-bottom: 15px; font-size: 13px; letter-spacing: 1px; color: var(--text-dim);">OPERATIONAL COSTS</h3>
+        <h3 style="margin-bottom:15px; font-size:12px; color:var(--gold);">OPERATIONAL DATA</h3>
         <div class="glass-card">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div class="input-group"><label>Kurs USD</label><input type="number" id="kurs" value="15850" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Tiket Pesawat</label><input type="number" id="tiket" value="14500000" oninput="saveAndCalc()"></div>
+                <div class="input-group"><label>Tiket/Pax</label><input type="number" id="tiket" value="14500000" oninput="saveAndCalc()"></div>
                 <div class="input-group"><label>Visa ($)</label><input type="number" id="visa" value="185" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Handling/LA</label><input type="number" id="hand" value="1500000" oninput="saveAndCalc()"></div>
+                <div class="input-group"><label>Handling</label><input type="number" id="hand" value="1500000" oninput="saveAndCalc()"></div>
                 <div class="input-group"><label>Makkah (N)</label><input type="number" id="nM" value="4" oninput="saveAndCalc()"></div>
                 <div class="input-group"><label>Madinah (N)</label><input type="number" id="nD" value="3" oninput="saveAndCalc()"></div>
             </div>
         </div>
 
-        <h3 style="margin-bottom: 15px; font-size: 13px; letter-spacing: 1px; color: var(--text-dim);">CHOOSE PACKAGE</h3>
+        <h3 style="margin-bottom:15px; font-size:12px; color:var(--gold);">PACKAGE SELECTION</h3>
         <div id="packageList"></div>
 
-        <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <button class="btn btn-pdf" onclick="generatePDF()">Download PDF</button>
-            <button class="btn btn-wa" onclick="sendWA()">Share WhatsApp</button>
+        <h3 style="margin-bottom:15px; font-size:12px; color:var(--gold);">DETAIL PENAWARAN</h3>
+        <div class="glass-card">
+            <div class="input-group"><label>Include</label><textarea id="include" oninput="saveAndCalc()">Tiket PP, Visa Umrah, Hotel Sesuai Paket, Makan 3x, Muthawif, Zamzam 5L.</textarea></div>
+            <div class="input-group"><label>Exclude</label><textarea id="exclude" oninput="saveAndCalc()">Paspor, Vaksin, Keperluan Pribadi.</textarea></div>
+            <div class="input-group"><label>S&K</label><textarea id="snk" oninput="saveAndCalc()">Harga dapat berubah sewaktu-waktu mengikuti kebijakan maskapai dan hotel.</textarea></div>
         </div>
+
+        <button class="btn btn-pdf" onclick="generatePDF()">Download Penawaran (PDF)</button>
+        <button class="btn btn-wa" onclick="sendWA()">Kirim ke WhatsApp</button>
     </div>
 
     <div id="screen-inventory" class="screen">
-        <h3 style="margin-bottom: 15px; font-size: 13px; letter-spacing: 1px; color: var(--text-dim);">ROOMING LIST</h3>
+        <h3 style="margin-bottom:15px; font-size:12px; color:var(--gold);">ROOMING & PROFIT CONTROL</h3>
         <div class="glass-card">
             <table>
-                <thead><tr><th>UNIT</th><th>TYPE</th><th>OCCUPY</th><th>LOSS</th></tr></thead>
+                <thead><tr><th>KAMAR</th><th>TIPE</th><th>ISI</th><th>STATUS</th></tr></thead>
                 <tbody id="roomTbody"></tbody>
             </table>
-            <button class="btn btn-add" onclick="addRoom()">+ ADD NEW ROOM</button>
-            <button class="btn" style="background:#000; color:#555; margin-top:20px; font-size:10px;" onclick="resetRooms()">RESET ALL DATA</button>
+            <button class="btn" style="background:#222; color:var(--gold);" onclick="addRoom()">+ TAMBAH UNIT KAMAR</button>
+            <button class="btn" style="background:#000; color:#444; margin-top:30px;" onclick="resetRooms()">RESET SEMUA DATA KAMAR</button>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active" id="nav-finance" onclick="setTab('finance')">Finance</div>
+        <div class="nav-item active" id="nav-finance" onclick="setTab('finance')">Pricing</div>
         <div class="nav-item" id="nav-inventory" onclick="setTab('inventory')">Inventory</div>
     </div>
 </div>
@@ -123,9 +120,9 @@
 <script>
     const PASS = "firdaus2024";
     let packages = [
-        { name: "BRONZE", smak: 450, smad: 350, pf: 2000000 },
-        { name: "SILVER", smak: 650, smad: 500, pf: 3000000 },
-        { name: "PLATINUM", smak: 1200, smad: 850, pf: 4500000 }
+        { name: "BRONZE", hotelM: "Azka Al Safa", hotelD: "Diyar Al Madinah", smak: 450, smad: 350, pf: 2000000 },
+        { name: "SILVER", hotelM: "Anjum Makkah", hotelD: "Grand Plaza", smak: 700, smad: 500, pf: 3000000 },
+        { name: "PLATINUM", hotelM: "Pullman Zamzam", hotelD: "Movenpick", smak: 1250, smad: 850, pf: 4500000 }
     ];
     let rooms = [{ type: 'Q', pax: 4 }];
     let activeIdx = 0;
@@ -135,7 +132,7 @@
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
             loadData(); saveAndCalc();
-        } else { alert("Password Salah!"); }
+        }
     }
 
     function setTab(t) {
@@ -146,9 +143,9 @@
     }
 
     function addRoom() { rooms.push({ type:'Q', pax:4 }); saveAndCalc(); }
-    function resetRooms() { if(confirm("Hapus semua data kamar?")) { rooms = [{ type:'Q', pax:4 }]; saveAndCalc(); } }
+    function resetRooms() { if(confirm("Reset Kamar?")) { rooms = [{ type:'Q', pax:4 }]; saveAndCalc(); } }
     function updateRoom(i,f,v) { rooms[i][f] = f==='pax'?parseInt(v):v; saveAndCalc(); }
-    function updatePkg(i,f,v) { packages[i][f] = parseFloat(v)||0; saveAndCalc(); }
+    function updatePkg(i,f,v) { packages[i][f] = f==='smak'||f==='smad'||f==='pf' ? parseFloat(v)||0 : v; saveAndCalc(); }
 
     function saveAndCalc() {
         const kurs = parseFloat(document.getElementById('kurs').value)||0;
@@ -156,11 +153,9 @@
         const tkt = parseFloat(document.getElementById('tiket').value)||0;
         const vsa = (parseFloat(document.getElementById('visa').value)||0)*kurs;
         const hnd = parseFloat(document.getElementById('hand').value)||0;
-        const nM = parseFloat(document.getElementById('nM').value)||0;
-        const nD = parseFloat(document.getElementById('nD').value)||0;
         const curPkg = packages[activeIdx];
 
-        // 1. Inventory & Leakage Logic
+        // Inventory & Leakage Logic
         const tbody = document.getElementById('roomTbody');
         tbody.innerHTML = "";
         let totalPax = 0; let totalLeak = 0;
@@ -170,19 +165,19 @@
             totalPax += r.pax;
             let loss = 0;
             if(r.pax < limit) {
-                let costPerRoomIDR = ((curPkg.smak * 4) + (curPkg.smad * 3)) * sar; // Simulasi harga full room
+                let costPerRoomIDR = ((curPkg.smak * 4) + (curPkg.smad * 3)) * sar;
                 loss = (limit - r.pax) * (costPerRoomIDR / limit);
                 totalLeak += loss;
             }
-            tbody.innerHTML += `<tr>
-                <td><b>Room ${i+1}</b></td>
-                <td><select onchange="updateRoom(${i},'type',this.value)"><option value="Q" ${r.type=='Q'?'selected':''}>QUAD</option><option value="T" ${r.type=='T'?'selected':''}>TRIPLE</option><option value="D" ${r.type=='D'?'selected':''}>DOUBLE</option></select></td>
+            tbody.innerHTML += `<tr><td>#${i+1}</td>
+                <td><select onchange="updateRoom(${i},'type',this.value)"><option value="Q" ${r.type=='Q'?'selected':''}>QUAD</option><option value="T" ${r.type=='T'?'selected':''}>TRIP</option><option value="D" ${r.type=='D'?'selected':''}>DBL</option></select></td>
                 <td><select onchange="updateRoom(${i},'pax',this.value)">${[1,2,3,4].map(n=>`<option value="${n}" ${r.pax==n?'selected':''}>${n}</option>`).join('')}</select></td>
-                <td style="color:${loss>0?'var(--danger)':'var(--success)'}">${loss>0?'-'+fmtShort(loss):'OK'}</td>
-            </tr>`;
+                <td style="color:${loss>0?'var(--danger)':'var(--success)'}">${loss>0?'TEKOR':'FULL'}</td></tr>`;
         });
 
-        // 2. Financial Logic
+        // Financial Calculation
+        const nM = parseFloat(document.getElementById('nM').value)||0;
+        const nD = parseFloat(document.getElementById('nD').value)||0;
         let hotelHppPerPax = (((curPkg.smak * nM) + (curPkg.smad * nD)) / 4) * sar;
         let hppPerPax = tkt + vsa + hnd + hotelHppPerPax;
         
@@ -193,26 +188,24 @@
         document.getElementById('topProfit').innerText = fmt(netProfit);
         document.getElementById('topRevenue').innerText = fmt(totalRevenue);
         document.getElementById('topHpp').innerText = fmt(totalHpp);
-        
-        const leakEl = document.getElementById('topLeak');
-        if(totalLeak > 0) {
-            leakEl.style.display = 'block';
-            leakEl.innerText = `⚠️ LOSS ON BED: -${fmt(totalLeak)}`;
-        } else { leakEl.style.display = 'none'; }
+        document.getElementById('topLeak').innerText = totalLeak > 0 ? `Bocor Kasur: -${fmt(totalLeak)}` : "";
 
-        // 3. Package Rendering
+        // Render Package Cards
         const pkgCont = document.getElementById('packageList');
         pkgCont.innerHTML = "";
         packages.forEach((p, idx) => {
             pkgCont.innerHTML += `
                 <div class="glass-card pkg-card ${activeIdx==idx?'active':''}" onclick="activeIdx=${idx};saveAndCalc();">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                        <span style="font-weight:800;font-size:13px;color:${activeIdx==idx?'var(--gold)':'#fff'}">${p.name}</span>
-                        <span style="font-size:9px;">${activeIdx==idx?'🟢 ACTIVE':'⚪ SELECT'}</span>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                        <span style="font-weight:800; color:var(--gold)">${p.name}</span>
+                        <span style="font-size:9px;">${activeIdx==idx?'🟢 AKTIF':'⚪ PILIH'}</span>
                     </div>
-                    <div style="display:grid;grid-template-columns: 1fr 1fr;gap:12px;margin-top:15px;">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <div class="input-group"><label>Hotel Makkah</label><input type="text" value="${p.hotelM}" oninput="updatePkg(${idx},'hotelM',this.value)"></div>
+                        <div class="input-group"><label>Hotel Madinah</label><input type="text" value="${p.hotelD}" oninput="updatePkg(${idx},'hotelD',this.value)"></div>
                         <div class="input-group"><label>SAR Makkah</label><input type="number" value="${p.smak}" oninput="updatePkg(${idx},'smak',this.value)"></div>
                         <div class="input-group"><label>SAR Madinah</label><input type="number" value="${p.smad}" oninput="updatePkg(${idx},'smad',this.value)"></div>
+                        <div class="input-group" style="grid-column: span 2;"><label>Profit Margin Kantor (Rp)</label><input type="number" value="${p.pf}" oninput="updatePkg(${idx},'pf',this.value)"></div>
                     </div>
                 </div>`;
         });
@@ -220,25 +213,26 @@
     }
 
     function fmt(v) { return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v); }
-    function fmtShort(v) { return (v/1000).toFixed(0) + 'k'; }
-    
+
     function saveData() {
         const d = { 
-            k:document.getElementById('kurs').value, t:document.getElementById('tiket').value, 
-            v:document.getElementById('visa').value, h:document.getElementById('hand').value,
-            nM:document.getElementById('nM').value, nD:document.getElementById('nD').value,
+            k:document.getElementById('kurs').value, t:document.getElementById('tiket').value, v:document.getElementById('visa').value, 
+            h:document.getElementById('hand').value, nM:document.getElementById('nM').value, nD:document.getElementById('nD').value,
+            inc:document.getElementById('include').value, exc:document.getElementById('exclude').value, snk:document.getElementById('snk').value,
             packages, rooms, activeIdx 
         };
-        localStorage.setItem('firdaus_final_db', JSON.stringify(d));
+        localStorage.setItem('firdaus_ultimate_v11', JSON.stringify(d));
     }
 
     function loadData() {
-        const raw = localStorage.getItem('firdaus_final_db');
+        const raw = localStorage.getItem('firdaus_ultimate_v11');
         if(raw) {
             const d = JSON.parse(raw);
             document.getElementById('kurs').value = d.k; document.getElementById('tiket').value = d.t;
             document.getElementById('visa').value = d.v; document.getElementById('hand').value = d.h;
             document.getElementById('nM').value = d.nM; document.getElementById('nD').value = d.nD;
+            document.getElementById('include').value = d.inc; document.getElementById('exclude').value = d.exc;
+            document.getElementById('snk').value = d.snk;
             packages = d.packages; rooms = d.rooms; activeIdx = d.activeIdx;
         }
     }
@@ -247,19 +241,21 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const p = packages[activeIdx];
-        doc.setFontSize(24); doc.setTextColor(197, 160, 89);
-        doc.text("FIRDAUS WISATA PENAWARAN", 20, 30);
-        doc.setFontSize(14); doc.setTextColor(0, 0, 0);
-        doc.text(`Tipe Paket: ${p.name}`, 20, 45);
-        doc.text(`Total Penawaran: ${document.getElementById('topRevenue').innerText}`, 20, 55);
-        doc.setFontSize(10);
-        doc.text("Catatan: Harga dapat berubah sesuai ketersediaan hotel dan kurs.", 20, 80);
+        doc.setFontSize(22); doc.setTextColor(197, 160, 89);
+        doc.text("FIRDAUS WISATA", 20, 30);
+        doc.setFontSize(14); doc.setTextColor(0,0,0);
+        doc.text(`Paket: ${p.name}`, 20, 45);
+        doc.text(`Hotel Makkah: ${p.hotelM}`, 20, 55);
+        doc.text(`Hotel Madinah: ${p.hotelD}`, 20, 65);
+        doc.text(`Harga Penawaran: ${document.getElementById('topRevenue').innerText}`, 20, 75);
+        doc.text("Include:", 20, 90); doc.setFontSize(10); doc.text(document.getElementById('include').value, 20, 95, {maxWidth: 170});
+        doc.setFontSize(14); doc.text("S&K:", 20, 120); doc.setFontSize(10); doc.text(document.getElementById('snk').value, 20, 125, {maxWidth: 170});
         doc.save(`Penawaran_${p.name}_Firdaus.pdf`);
     }
 
     function sendWA() {
         const p = packages[activeIdx];
-        const msg = `Halo Admin Firdaus Wisata,%0A%0ASaya telah menghitung estimasi untuk paket *${p.name}*%0ATotal Revenue: ${document.getElementById('topRevenue').innerText}%0AEstimasi Profit: ${document.getElementById('topProfit').innerText}%0A%0ASilakan dicek kembali.`;
+        const msg = `Halo Firdaus Wisata,%0A%0AInformasi Paket *${p.name}*%0AHotel: ${p.hotelM} / ${p.hotelD}%0ATotal Penawaran: ${document.getElementById('topRevenue').innerText}%0A%0A_Generated by Firdaus Elite System_`;
         window.open(`https://wa.me/?text=${msg}`, '_blank');
     }
 </script>
