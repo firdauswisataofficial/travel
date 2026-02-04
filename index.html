@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Quote - Firdaus Wisata Insani</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --netflix-red: #E50914; --dark-bg: #141414; --card-bg: #1F1F1F; --text-gray: #a3a3a3; --hhr-green: #46d369; }
+        
+        /* LOGIN SCREEN */
+        #loginScreen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; z-index: 10000;
+        }
+        .login-box { background: rgba(0,0,0,0.95); padding: 40px; border-radius: 10px; width: 90%; max-width: 350px; text-align: center; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; background: #333; border: 1px solid #444; border-radius: 4px; color: white; box-sizing: border-box; font-size: 16px; }
+        .login-box button { width: 100%; padding: 12px; background: var(--netflix-red); color: white; border: none; border-radius: 4px; font-weight: 800; cursor: pointer; font-size: 16px; }
+
+        /* MAIN CONTENT */
+        #mainContent { display: none; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: white; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #333; margin-bottom: 30px; }
+        .brand h1 { color: var(--netflix-red); margin: 0; font-weight: 800; font-size: 24px; text-transform: uppercase; letter-spacing: -1px; }
+        
+        .admin-panel { background: #1a1a1a; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #222; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+        label { display: block; font-size: 10px; color: var(--text-gray); font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
+        input.adm { background: #262626; border: 1px solid #333; color: white; padding: 8px; border-radius: 4px; width: 100%; box-sizing: border-box; font-size: 13px; }
+
+        .pkg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .pkg-card { background: var(--card-bg); border-radius: 8px; border: 1px solid #2a2a2a; overflow: hidden; transition: 0.3s; }
+        .pkg-head { padding: 15px; background: #252525; border-bottom: 3px solid var(--netflix-red); font-weight: 800; text-transform: uppercase; font-size: 14px; }
+        .pkg-body { padding: 15px; }
+        
+        .price-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #2a2a2a; }
+        .price-row label { color: white; margin: 0; align-self: center; }
+        .price-row input { background: transparent; border: none; color: white; text-align: right; font-weight: 800; width: 60%; font-size: 18px; pointer-events: none; font-family: 'Inter'; }
+        
+        .hhr-tag { display: none; background: rgba(70,211,105,0.1); color: var(--hhr-green); padding: 5px 10px; border-radius: 4px; font-size: 10px; margin-bottom: 10px; border: 1px solid rgba(70,211,105,0.2); font-weight: 600; }
+        .show-hhr { display: inline-block; }
+
+        .btn { padding: 10px; border-radius: 4px; border: none; cursor: pointer; font-weight: 700; font-size: 11px; text-transform: uppercase; margin-top: 10px; font-family: 'Inter'; transition: 0.2s; }
+        .btn-red { background: var(--netflix-red); color: white; width: 100%; }
+        .btn-wa { background: #25D366; color: white; width: 100%; }
+        .btn:hover { opacity: 0.9; transform: scale(0.98); }
+
+        @media print {
+            .no-print, #loginScreen { display: none !important; }
+            #mainContent { display: block !important; }
+            body { background: white !important; color: black !important; padding: 0; }
+            .pkg-card { border: 1px solid #eee !important; width: 100%; background: white !important; box-shadow: none !important; }
+            .pkg-head { background: #f0f0f0 !important; border-bottom: 4px solid #E50914 !important; color: black !important; }
+            .price-row input { color: black !important; }
+            .brand h1 { color: #E50914 !important; }
+            .hhr-tag { border: 1px solid #2e7d32 !important; color: #2e7d32 !important; background: transparent !important; }
+            .price-row label { color: black !important; }
+            input.adm { color: black !important; border: none !important; background: transparent !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginScreen">
+    <div class="login-box">
+        <h1 style="color:var(--netflix-red); font-weight:900; margin:0 0 10px 0;">FIRDAUS</h1>
+        <h3 style="color:white; margin-bottom:20px; font-weight:400;">Internal Quote System</h3>
+        <input type="password" id="passInput" placeholder="Password Admin">
+        <button onclick="doLogin()">MASUK</button>
+        <p id="err" style="color:var(--netflix-red); font-size:12px; display:none; margin-top:10px; font-weight:600;">Password Salah!</p>
+    </div>
+</div>
+
+<div id="mainContent">
+    <div class="container">
+        <div class="header">
+            <div class="brand"><h1>FIRDAUS WISATA INSANI</h1></div>
+            <div class="no-print"><button class="btn" style="background:#333; color:white;" onclick="location.reload()">Reset Sistem</button></div>
+        </div>
+
+        <div class="admin-panel no-print">
+            <div class="grid">
+                <div style="grid-column: span 2;"><label>Nama Calon Jamaah</label><input type="text" id="cName" class="adm" placeholder="Contoh: Bpk. Fulan"></div>
+                <div><label>Maskapai</label><input type="text" id="airline" class="adm" placeholder="Saudi / Garuda"></div>
+                <div><label>Kurs USD</label><input type="number" id="kurs" class="adm" placeholder="0" oninput="run()"></div>
+                <div><label>Tiket (IDR)</label><input type="number" id="tiket" class="adm" placeholder="0" oninput="run()"></div>
+                <div><label>Visa (USD)</label><input type="number" id="visa" class="adm" placeholder="0" oninput="run()"></div>
+                <div><label>Makkah (Malam)</label><input type="number" id="nM" class="adm" placeholder="0" oninput="run()"></div>
+                <div><label>Madinah (Malam)</label><input type="number" id="nD" class="adm" placeholder="0" oninput="run()"></div>
+                <div><label>Perlengkapan</label><input type="number" id="perlengkapan" class="adm" placeholder="0" oninput="run()"></div>
+            </div>
+        </div>
+
+        <div class="pkg-grid">
+            <script>
+                const data = [
+                    {n:'Bronze Package'},
+                    {n:'Silver Package'},
+                    {n:'Platinum Package'}
+                ];
+                data.forEach((x, i) => {
+                    document.write(`
+                    <div class="pkg-card">
+                        <div class="pkg-head">${x.n}</div>
+                        <div class="pkg-body">
+                            <div id="hhr-${i}" class="hhr-tag">🚄 Termasuk Kereta Cepat</div>
+                            
+                            <div class="no-print" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:5px; margin-bottom:15px; border:1px solid #333;">
+                                <label style="color:var(--netflix-red); font-size:9px;">Konfigurasi Hotel & Profit:</label>
+                                <input type="text" id="hm${i}" class="adm" placeholder="Hotel Makkah" style="margin-bottom:5px;">
+                                <input type="text" id="hd${i}" class="adm" placeholder="Hotel Madinah" style="margin-bottom:10px;">
+                                <div class="grid" style="grid-template-columns: 1fr 1fr; gap:5px;">
+                                    <div><label>SAR Makkah</label><input type="number" id="m${i}" class="adm" placeholder="0" oninput="run()"></div>
+                                    <div><label>SAR Madinah</label><input type="number" id="d${i}" class="adm" placeholder="0" oninput="run()"></div>
+                                </div>
+                                <div class="grid" style="grid-template-columns: 1fr 1fr; gap:5px; margin-top:10px;">
+                                    <div><label>Admin Profit</label><input type="number" id="p${i}" class="adm" placeholder="0" oninput="run()"></div>
+                                    <div><label>HHR (IDR)</label><input type="number" id="tr${i}" class="adm" placeholder="0" oninput="run()"></div>
+                                </div>
+                            </div>
+
+                            <div class="price-row"><label>QUAD</label><input type="text" id="q${i}" value="Rp 0" readonly></div>
+                            <div class="price-row"><label>TRIPLE</label><input type="text" id="t${i}" value="Rp 0" readonly></div>
+                            <div class="price-row"><label>DOUBLE</label><input type="text" id="d${i}" value="Rp 0" readonly></div>
+                            
+                            <button class="btn btn-wa no-print" onclick="wa(${i})">Kirim ke WhatsApp</button>
+                            <button class="btn btn-red no-print" onclick="window.print()">Cetak PDF</button>
+                        </div>
+                    </div>
+                    `);
+                });
+            </script>
+        </div>
+        <div style="text-align:center; color:#555; font-size:10px; margin-top:50px;" class="no-print">
+            &copy; Firdaus Wisata Insani - System Internal v2.0
+        </div>
+    </div>
+</div>
+
+<script>
+    function doLogin() {
+        if(document.getElementById('passInput').value === "firdaus2024") {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        } else { 
+            document.getElementById('err').style.display = 'block'; 
+        }
+    }
+
+    // Fungsi format rupiah
+    function fmt(v) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v); }
+
+    function run() {
+        const k = parseFloat(document.getElementById('kurs').value) || 0;
+        const s = k / 3.75; // Harga SAR per Rupiah berdasarkan Kurs USD
+        const tkt = parseFloat(document.getElementById('tiket').value) || 0;
+        const vsa = (parseFloat(document.getElementById('visa').value) || 0) * k;
+        const perl = parseFloat(document.getElementById('perlengkapan').value) || 0;
+        const b = tkt + vsa + perl;
+
+        const nM = parseFloat(document.getElementById('nM').value) || 0;
+        const nD = parseFloat(document.getElementById('nD').value) || 0;
+
+        for(let i=0; i<3; i++) {
+            const tr = parseFloat(document.getElementById('tr'+i).value) || 0;
+            const hhrTag = document.getElementById('hhr-'+i);
+            
+            // Tampilkan logo kereta jika ada biaya HHR
+            if(tr > 0) hhrTag.classList.add('show-hhr'); 
+            else hhrTag.classList.remove('show-hhr');
+            
+            const m = parseFloat(document.getElementById('m'+i).value) || 0; // Harga SAR Hotel Makkah
+            const d = parseFloat(document.getElementById('d'+i).value) || 0; // Harga SAR Hotel Madinah
+            const p = parseFloat(document.getElementById('p'+i).value) || 0; // Profit Admin
+
+            // Rumus: Base + Profit + HHR + ((Hotel/Pax)*Malam)*Kurs
+            document.getElementById('q'+i).value = fmt(b + p + tr + (((m/4)*nM) + ((d/4)*nD)) * s);
+            document.getElementById('t'+i).value = fmt(b + p + tr + (((m/3)*nM) + ((d/3)*nD)) * s);
+            document.getElementById('d'+i).value = fmt(b + p + tr + (((m/2)*nM) + ((d/2)*nD)) * s);
+        }
+    }
+
+    function wa(i) {
+        const n = document.getElementById('cName').value || "Bapak/Ibu";
+        const air = document.getElementById('airline').value || "-";
+        const hM = document.getElementById('hm'+i).value || "-";
+        const hD = document.getElementById('hd'+i).value || "-";
+        
+        const qP = document.getElementById('q'+i).value;
+        const tP = document.getElementById('t'+i).value;
+        const dP = document.getElementById('d'+i).value;
+
+        const msg = `*PENAWARAN UMRAH - FIRDAUS WISATA INSANI*\n\nYth. *${n}*\nMaskapai: ${air}\n\n*Akomodasi:* \n🏨 Makkah: ${hM}\n🕌 Madinah: ${hD}\n\n*ESTIMASI HARGA (All-in):*\n🔴 QUAD: *${qP}*\n🔵 TRIPLE: *${tP}*\n🟢 DOUBLE: *${dP}*\n\n_Harga dapat berubah sewaktu-waktu mengikuti kurs & ketersediaan._`;
+        
+        window.open("https://wa.me/?text=" + encodeURIComponent(msg), '_blank');
+    }
+</script>
+</body>
+</html>
