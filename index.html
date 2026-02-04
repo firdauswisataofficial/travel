@@ -21,86 +21,100 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-        /* LOGIN SCREEN */
-        #loginScreen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 10000; transition: 0.5s; }
+        /* --- LOGIN --- */
+        #loginScreen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 10000; }
         .login-card { width: 90%; max-width: 340px; text-align: center; }
-        .login-card h1 { font-size: 28px; font-weight: 800; letter-spacing: 5px; margin-bottom: 5px; color: var(--text); }
+        .login-card h1 { font-size: 28px; font-weight: 800; letter-spacing: 5px; margin-bottom: 5px; }
         .login-card p { font-size: 11px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 35px; }
-        .login-card input { width: 100%; background: var(--card); border: 1px solid #333; padding: 16px; border-radius: 14px; color: white; text-align: center; margin-bottom: 15px; font-size: 16px; outline: none; transition: 0.3s; }
-        .login-card input:focus { border-color: var(--gold); }
-        .login-card button { width: 100%; background: var(--text); color: black; border: none; padding: 16px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .login-card button:hover { background: var(--gold); }
+        .login-card input { width: 100%; background: var(--card); border: 1px solid #333; padding: 16px; border-radius: 14px; color: white; text-align: center; margin-bottom: 15px; font-size: 16px; outline: none; }
+        .login-card button { width: 100%; background: var(--text); color: black; border: none; padding: 16px; border-radius: 14px; font-weight: 700; cursor: pointer; }
 
         #mainContent { display: none; padding: 20px; animation: fadeIn 0.8s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         .container { max-width: 1200px; margin: 0 auto; }
 
-        /* NAVIGATION */
+        /* --- NAVIGATION --- */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #222; margin-bottom: 40px; }
-        .brand-name { font-weight: 800; font-size: 20px; letter-spacing: 1px; text-transform: uppercase; }
+        .brand-name { font-weight: 800; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; }
         .brand-name span { color: var(--gold); }
 
-        /* DASHBOARD PANEL */
-        .glass-card { background: var(--card); border: 1px solid #282828; border-radius: 28px; padding: 30px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .section-tag { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; display: block; }
+        /* --- ADMIN PANEL --- */
+        .glass-card { background: var(--card); border: 1px solid #282828; border-radius: 28px; padding: 25px; margin-bottom: 40px; }
+        .section-tag { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
         
-        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-        .input-group { display: flex; flex-direction: column; gap: 8px; }
-        .input-group label { font-size: 11px; font-weight: 600; color: var(--text-dim); }
-        .input-group input { background: var(--input); border: 1px solid #333; padding: 14px; border-radius: 12px; color: white; font-size: 14px; outline: none; transition: 0.3s; }
-        .input-group input:focus { border-color: var(--gold); background: #262626; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-group label { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; }
+        .input-group input { background: var(--input); border: 1px solid #333; padding: 12px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
+        .input-group input:focus { border-color: var(--gold); }
 
-        .summary-bar { margin-top: 35px; background: #000; padding: 25px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--gold); border: 1px solid #222; }
-        .summary-info h4 { font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 5px; }
-        .summary-info p { font-size: 26px; font-weight: 800; color: var(--gold-light); }
+        .summary-bar { margin-top: 30px; background: #000; padding: 20px; border-radius: 18px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
+        .summary-info p { font-size: 22px; font-weight: 800; color: var(--gold-light); }
 
-        /* PACKAGE CARDS */
-        .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 30px; }
-        .package-card { background: var(--card); border-radius: 32px; border: 1px solid #282828; overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
-        .pkg-header { padding: 25px; text-align: center; background: #1a1a1a; border-bottom: 1px solid #222; }
-        .pkg-header h3 { font-size: 16px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-        .pkg-body { padding: 30px; flex-grow: 1; }
+        /* --- PACKAGE GRID (HORIZONTAL SCROLL) --- */
+        .package-grid { 
+            display: flex; 
+            gap: 20px; 
+            overflow-x: auto; 
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .package-grid::-webkit-scrollbar { height: 4px; }
+        .package-grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-        /* PRICING UI */
-        .price-box { margin-bottom: 25px; }
-        .price-label-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; font-weight: 700; color: var(--text-dim); }
-        .price-input-field { background: #000; border: 1px solid #333; border-radius: 16px; padding: 12px 20px; display: flex; align-items: center; transition: 0.3s; }
-        .price-input-field:focus-within { border-color: var(--gold); }
-        .price-input-field input { background: transparent; border: none; color: white; font-size: 24px; font-weight: 800; width: 100%; outline: none; }
-        .price-footer { display: flex; justify-content: space-between; margin-top: 8px; font-size: 10px; }
-        .sys-price { color: #555; }
-        .diff-tag { color: var(--success); font-weight: 700; opacity: 0.9; }
+        .package-card { 
+            flex: 0 0 320px; 
+            scroll-snap-align: start;
+            background: var(--card); 
+            border-radius: 28px; 
+            border: 1px solid #282828; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
 
-        /* ACTION BUTTONS */
-        .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        .btn { padding: 16px; border-radius: 14px; font-size: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; border: none; transition: 0.3s; text-align: center; text-decoration: none; }
+        .pkg-header { padding: 20px; text-align: center; background: #1a1a1a; border-bottom: 1px solid #222; }
+        .pkg-header h3 { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: var(--gold); }
+        .pkg-body { padding: 25px; flex-grow: 1; }
+
+        /* --- PRICING BOX --- */
+        .price-box { margin-bottom: 20px; }
+        .price-label-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px; font-weight: 700; color: var(--text-dim); }
+        .price-input-field { background: #000; border: 1px solid #333; border-radius: 14px; padding: 10px 15px; display: flex; align-items: center; }
+        .price-input-field input { background: transparent; border: none; color: white; font-size: 20px; font-weight: 800; width: 100%; outline: none; }
+        .price-footer { display: flex; justify-content: space-between; margin-top: 5px; font-size: 10px; }
+        .diff-tag { color: var(--success); font-weight: 700; }
+
+        .btn { padding: 14px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; border: none; transition: 0.3s; text-align: center; display: block; width: 100%; text-decoration: none; margin-top: 10px; }
         .btn-gold { background: var(--gold); color: black; }
-        .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
         .btn-outline { background: transparent; border: 1px solid #444; color: white; }
-        .btn-outline:hover { background: #222; }
 
-        .footer-note { margin-top: 30px; padding-top: 20px; border-top: 1px solid #282828; font-size: 10px; color: #666; line-height: 1.6; }
+        .snk-text { font-size: 10px; color: #555; margin-top: 20px; line-height: 1.4; border-top: 1px solid #222; padding-top: 15px; }
 
-        /* PRINT DESIGN */
+        /* --- DESKTOP ADAPTATION --- */
+        @media (min-width: 1024px) {
+            .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+            .package-card { flex: none; }
+        }
+
+        /* --- PRINT --- */
         @media print {
             .no-print { display: none !important; }
-            body { background: white !important; color: black !important; padding: 0; }
-            .container { max-width: 100%; }
-            .package-card { border: none !important; display: none; width: 100% !important; margin: 0; }
+            body { background: white !important; color: black !important; }
+            .package-grid { display: block !important; }
+            .package-card { display: none; width: 100% !important; border: none !important; }
             .package-card.print-active { display: block !important; }
-            .pkg-header { background: white !important; border-bottom: 4px solid black !important; padding: 0 0 10px 0; margin-bottom: 30px; }
-            .pkg-header h3 { font-size: 32px !important; color: black !important; text-align: left; }
-            .price-input-field { border: none !important; border-bottom: 2px solid #eee !important; border-radius: 0 !important; padding: 5px 0 !important; }
-            .price-input-field input { color: black !important; font-size: 36px !important; text-align: right !important; font-weight: 900 !important; }
-            .price-label-row { color: black !important; font-size: 14px !important; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 20px; }
-            .footer-note { color: #333 !important; border-top: 2px solid black !important; font-size: 13px !important; margin-top: 50px; padding-top: 20px; }
-            .brand-pdf-header { display: block !important; text-align: center; margin-bottom: 40px; }
-            .brand-pdf-header h1 { font-size: 42px; font-weight: 900; color: black; margin: 0; }
-            .brand-pdf-header p { font-size: 12px; letter-spacing: 5px; color: #C5A059; text-transform: uppercase; margin-top: 5px; }
-            .pdf-meta-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border: 1px solid #eee; padding: 25px; border-radius: 15px; margin-top: 30px; font-size: 15px; text-align: left; }
+            .pkg-header { background: white !important; border-bottom: 3px solid black !important; }
+            .pkg-header h3 { font-size: 28px !important; color: black !important; }
+            .price-input-field { border-bottom: 2px solid #eee !important; }
+            .price-input-field input { color: black !important; font-size: 32px !important; text-align: right !important; }
+            .brand-pdf { display: block !important; text-align: center; margin-bottom: 30px; }
+            .brand-pdf h1 { font-size: 36px; font-weight: 900; }
+            .meta-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border: 1px solid #eee; padding: 20px; border-radius: 10px; margin-top: 20px; font-size: 14px; text-align: left; }
         }
-        .brand-pdf-header { display: none; }
+        .brand-pdf { display: none; }
     </style>
 </head>
 <body>
@@ -109,8 +123,8 @@
     <div class="login-card">
         <h1>FIRDAUS</h1>
         <p>Signature System</p>
-        <input type="password" id="passInput" placeholder="Enter Access Key">
-        <button onclick="doLogin()">AUTHENTICATE</button>
+        <input type="password" id="passInput" placeholder="Password Admin">
+        <button onclick="doLogin()">MASUK SISTEM</button>
     </div>
 </div>
 
@@ -118,37 +132,33 @@
     <div class="container">
         <nav class="no-print">
             <div class="brand-name">FIRDAUS <span>WISATA INSANI</span></div>
-            <button class="btn btn-outline" style="padding: 8px 18px; font-size: 10px;" onclick="location.reload()">LOGOUT</button>
+            <button class="btn btn-outline" style="width:auto; margin:0; padding: 5px 15px;" onclick="location.reload()">KELUAR</button>
         </nav>
 
         <div class="glass-card no-print">
-            <span class="section-tag">Management Control</span>
+            <span class="section-tag">Input Data Utama</span>
             <div class="input-grid">
-                <div class="input-group" style="grid-column: span 2;"><label>Nama Jamaah</label><input type="text" id="cName" placeholder="Contoh: Bpk. H. Ahmad" oninput="run()"></div>
-                <div class="input-group" style="grid-column: span 2;"><label>Maskapai</label><input type="text" id="airline" placeholder="Garuda Indonesia / Saudi Airlines" oninput="run()"></div>
-                <div class="input-group"><label>Jumlah Pax</label><input type="number" id="paxCount" value="1" oninput="run()"></div>
-                <div class="input-group"><label>Kurs USD</label><input type="number" id="kurs" placeholder="15850" oninput="run()"></div>
-                <div class="input-group"><label>Tiket IDR</label><input type="number" id="tiket" placeholder="14000000" oninput="run()"></div>
-                <div class="input-group"><label>Visa USD</label><input type="number" id="visa" value="185" oninput="run()"></div>
-                <div class="input-group"><label>Makkah (Malam)</label><input type="number" id="nM" value="4" oninput="run()"></div>
-                <div class="input-group"><label>Madinah (Malam)</label><input type="number" id="nD" value="3" oninput="run()"></div>
+                <div class="input-group" style="grid-column: span 2;"><label>Jamaah</label><input type="text" id="cName" oninput="run()"></div>
+                <div class="input-group" style="grid-column: span 2;"><label>Maskapai</label><input type="text" id="airline" oninput="run()"></div>
+                <div class="input-group"><label>Pax</label><input type="number" id="paxCount" value="1" oninput="run()"></div>
+                <div class="input-group"><label>Kurs $</label><input type="number" id="kurs" placeholder="15850" oninput="run()"></div>
+                <div class="input-group"><label>Tiket IDR</label><input type="number" id="tiket" oninput="run()"></div>
+                <div class="input-group"><label>Visa $</label><input type="number" id="visa" value="185" oninput="run()"></div>
+                <div class="input-group"><label>Makkah (N)</label><input type="number" id="nM" value="4" oninput="run()"></div>
+                <div class="input-group"><label>Madinah (N)</label><input type="number" id="nD" value="3" oninput="run()"></div>
                 <div class="input-group"><label>Perlengkapan</label><input type="number" id="perlengkapan" value="1500000" oninput="run()"></div>
             </div>
-
             <div class="summary-bar">
-                <div class="summary-info">
-                    <h4>Internal Net Profit</h4>
-                    <p id="totalProfitDisplay">Rp 0</p>
-                </div>
-                <button class="btn btn-outline" style="border-color: #441111; color: #FF4D4D; font-size: 10px;" onclick="clearAll()">RESET SYSTEM</button>
+                <div class="summary-info"><label style="font-size: 9px; color: #666;">ESTIMASI PROFIT KANTOR</label><p id="totalProfitDisplay">Rp 0</p></div>
+                <button class="btn btn-outline" style="width:auto; border-color:#300; color:#f55;" onclick="clearAll()">RESET</button>
             </div>
         </div>
 
         <div class="package-grid">
-            <div class="brand-pdf-header">
+            <div class="brand-pdf">
                 <h1>FIRDAUS WISATA INSANI</h1>
-                <p>Official Quote Penawaran Umrah</p>
-                <div class="pdf-meta-box" id="pdfMetaDisplay"></div>
+                <p style="letter-spacing: 5px; color: #C5A059; text-transform: uppercase;">Official Quote Penawaran</p>
+                <div class="meta-pdf" id="pdfMeta"></div>
             </div>
 
             <script>
@@ -156,46 +166,38 @@
                 paks.forEach((name, i) => {
                     document.write(`
                     <div class="package-card" id="card-${i}">
-                        <div class="pkg-header"><h3>${name} Package</h3></div>
+                        <div class="pkg-header"><h3>${name} PACKAGE</h3></div>
                         <div class="pkg-body">
-                            <div class="no-print" style="margin-bottom: 25px; background: #000; padding: 20px; border-radius: 20px; border: 1px solid #333;">
-                                <div class="input-group"><label>Hotel Makkah</label><input type="text" id="hm${i}" oninput="run()" style="margin-bottom:10px"></div>
-                                <div class="input-group"><label>Hotel Madinah</label><input type="text" id="hd${i}" oninput="run()" style="margin-bottom:15px"></div>
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                    <div class="input-group"><label>SAR Makkah</label><input type="number" id="smak_${i}" oninput="run()"></div>
-                                    <div class="input-group"><label>SAR Madinah</label><input type="number" id="smad_${i}" oninput="run()"></div>
+                            <div class="no-print" style="margin-bottom: 20px; background: #000; padding: 15px; border-radius: 15px; border: 1px solid #222;">
+                                <div class="input-group"><label>Hotel Makkah</label><input type="text" id="hm${i}" oninput="run()" style="margin-bottom:8px"></div>
+                                <div class="input-group"><label>Hotel Madinah</label><input type="text" id="hd${i}" oninput="run()" style="margin-bottom:12px"></div>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                                    <div class="input-group"><label>SAR Mak</label><input type="number" id="smak_${i}" oninput="run()"></div>
+                                    <div class="input-group"><label>SAR Mad</label><input type="number" id="smad_${i}" oninput="run()"></div>
                                     <div class="input-group"><label>Base Profit</label><input type="number" id="pf_${i}" oninput="run()"></div>
-                                    <div class="input-group"><label>Handling/Lain</label><input type="number" id="hr_${i}" oninput="run()"></div>
+                                    <div class="input-group"><label>Addon</label><input type="number" id="hr_${i}" oninput="run()"></div>
                                 </div>
                             </div>
-
                             <div class="price-box">
-                                <div class="price-label-row">QUAD ROOM <span>per jamaah</span></div>
+                                <div class="price-label-row">QUAD ROOM <span>/PAX</span></div>
                                 <div class="price-input-field"><input type="text" id="q_${i}" oninput="manual(${i})"></div>
-                                <div class="price-footer no-print"><span class="sys-price">HPP: <b id="sysQ_${i}">0</b></span><span class="diff-tag" id="diffQ_${i}">+0</span></div>
+                                <div class="price-footer no-print"><span style="color:#444">HPP: <b id="sysQ_${i}">0</b></span><span class="diff-tag" id="diffQ_${i}">+0</span></div>
                             </div>
                             <div class="price-box">
-                                <div class="price-label-row">TRIPLE ROOM <span>per jamaah</span></div>
+                                <div class="price-label-row">TRIPLE ROOM <span>/PAX</span></div>
                                 <div class="price-input-field"><input type="text" id="t_${i}" oninput="manual(${i})"></div>
-                                <div class="price-footer no-print"><span class="sys-price">HPP: <b id="sysT_${i}">0</b></span><span class="diff-tag" id="diffT_${i}">+0</span></div>
+                                <div class="price-footer no-print"><span style="color:#444">HPP: <b id="sysT_${i}">0</b></span><span class="diff-tag" id="diffT_${i}">+0</span></div>
                             </div>
                             <div class="price-box">
-                                <div class="price-label-row">DOUBLE ROOM <span>per jamaah</span></div>
+                                <div class="price-label-row">DOUBLE ROOM <span>/PAX</span></div>
                                 <div class="price-input-field"><input type="text" id="d_${i}" oninput="manual(${i})"></div>
-                                <div class="price-footer no-print"><span class="sys-price">HPP: <b id="sysD_${i}">0</b></span><span class="diff-tag" id="diffD_${i}">+0</span></div>
+                                <div class="price-footer no-print"><span style="color:#444">HPP: <b id="sysD_${i}">0</b></span><span class="diff-tag" id="diffD_${i}">+0</span></div>
                             </div>
-
-                            <div class="footer-note">
-                                <b>Terms & Conditions:</b><br>
-                                • Penawaran mencakup Tiket PP, Visa, Perlengkapan, dan Akomodasi Hotel.<br>
-                                • Harga didasarkan pada kurs saat ini dan dapat berubah sewaktu-waktu.<br>
-                                • Pelunasan wajib diselesaikan paling lambat H-30 sebelum keberangkatan.
+                            <div class="snk-text">
+                                • Termasuk: Tiket PP, Visa, Hotel, Handling.<br>• Harga mengikuti kurs saat pelunasan.<br>• Pelunasan H-30 sebelum keberangkatan.
                             </div>
-
-                            <div class="btn-stack no-print">
-                                <button class="btn btn-gold" onclick="printSingle(${i})">SIMPAN SEBAGAI PDF</button>
-                                <button class="btn btn-outline" style="border-color:#25D366; color:#25D366;" onclick="wa(${i})">KIRIM KE WHATSAPP</button>
-                            </div>
+                            <button class="btn btn-gold no-print" onclick="printSingle(${i})">SIMPAN PDF</button>
+                            <button class="btn btn-outline no-print" style="color:#25D366; border-color:#25D366;" onclick="wa(${i})">WHATSAPP</button>
                         </div>
                     </div>
                     `);
@@ -210,14 +212,10 @@
     let calc = [{}, {}, {}];
 
     function doLogin() {
-        const stored = localStorage.getItem('firdaus_pass') || PASS_DEF;
-        if(document.getElementById('passInput').value === stored) {
-            document.getElementById('loginScreen').style.opacity = '0';
-            setTimeout(() => { 
-                document.getElementById('loginScreen').style.display = 'none'; 
-                document.getElementById('mainContent').style.display = 'block'; 
-            }, 500);
-        } else { alert("Akses Ditolak. Password Salah."); }
+        if(document.getElementById('passInput').value === PASS_DEF) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        } else { alert("Akses Ditolak."); }
     }
 
     function parseRp(val) { return parseFloat(val.toString().replace(/[^0-9]/g, "")) || 0; }
@@ -232,12 +230,11 @@
         const nM = parseFloat(document.getElementById('nM').value) || 0;
         const nD = parseFloat(document.getElementById('nD').value) || 0;
 
-        // Meta Data PDF
-        const jam = document.getElementById('cName').value || "-";
-        const mask = document.getElementById('airline').value || "-";
-        document.getElementById('pdfMetaDisplay').innerHTML = `
-            <div><b>Nama Jamaah:</b> ${jam}</div><div><b>Maskapai:</b> ${mask}</div>
-            <div><b>Pax:</b> ${document.getElementById('paxCount').value} Orang</div><div><b>Tanggal:</b> ${new Date().toLocaleDateString('id-ID')}</div>
+        document.getElementById('pdfMeta').innerHTML = `
+            <div><b>Jamaah:</b> ${document.getElementById('cName').value || "-"}</div>
+            <div><b>Airlines:</b> ${document.getElementById('airline').value || "-"}</div>
+            <div><b>Pax:</b> ${document.getElementById('paxCount').value} Orang</div>
+            <div><b>Update:</b> ${new Date().toLocaleDateString('id-ID')}</div>
         `;
 
         for(let i=0; i<3; i++) {
@@ -260,7 +257,6 @@
             if(parseRp(document.getElementById('q_'+i).value) === 0) document.getElementById('q_'+i).value = fmt(calc[i].sysQ);
             if(parseRp(document.getElementById('t_'+i).value) === 0) document.getElementById('t_'+i).value = fmt(calc[i].sysT);
             if(parseRp(document.getElementById('d_'+i).value) === 0) document.getElementById('d_'+i).value = fmt(calc[i].sysD);
-            
             manual(i);
         }
     }
@@ -270,26 +266,19 @@
         const tJ = parseRp(document.getElementById('t_'+i).value);
         const dJ = parseRp(document.getElementById('d_'+i).value);
 
-        document.getElementById('diffQ_'+i).innerText = (qJ - calc[i].sysQ >= 0 ? "+" : "") + fmt(qJ - calc[i].sysQ);
-        document.getElementById('diffT_'+i).innerText = (tJ - calc[i].sysT >= 0 ? "+" : "") + fmt(tJ - calc[i].sysT);
-        document.getElementById('diffD_'+i).innerText = (dJ - calc[i].sysD >= 0 ? "+" : "") + fmt(dJ - calc[i].sysD);
-        
+        document.getElementById('diffQ_'+i).innerText = "+" + fmt(qJ - calc[i].sysQ);
+        document.getElementById('diffT_'+i).innerText = "+" + fmt(tJ - calc[i].sysT);
+        document.getElementById('diffD_'+i).innerText = "+" + fmt(dJ - calc[i].sysD);
         updateTotalProfit();
     }
 
     function updateTotalProfit() {
-        const px = parseFloat(document.getElementById('paxCount').value) || 1;
         let total = 0;
+        const px = parseFloat(document.getElementById('paxCount').value) || 1;
         for(let i=0; i<3; i++) {
             const qJ = parseRp(document.getElementById('q_'+i).value);
-            const tJ = parseRp(document.getElementById('t_'+i).value);
-            const dJ = parseRp(document.getElementById('d_'+i).value);
-            
             const pfQ = (qJ - calc[i].sysQ) + calc[i].basePf;
-            const pfT = (tJ - calc[i].sysT) + calc[i].basePf;
-            const pfD = (dJ - calc[i].sysD) + calc[i].basePf;
-            
-            total += ((pfQ + pfT + pfD) / 3) * px;
+            total += (pfQ / 3) * px; // Rata-rata profit per paket
         }
         document.getElementById('totalProfitDisplay').innerText = fmt(total);
     }
@@ -301,15 +290,13 @@
     }
 
     function wa(i) {
-        const jam = document.getElementById('cName').value || "Bapak/Ibu";
-        const msg = `*PENAWARAN UMRAH - FIRDAUS WISATA INSANI*\n\nYth. *${jam}*\n\nBerikut rincian paket umrah Anda:\n*QUAD:* ${document.getElementById('q_'+i).value}\n*TRIPLE:* ${document.getElementById('t_'+i).value}\n*DOUBLE:* ${document.getElementById('d_'+i).value}\n\n_Segera reservasi seat Anda bersama Firdaus Wisata Insani._`;
+        const msg = `*PENAWARAN UMRAH - FIRDAUS*\n\nQUAD: ${document.getElementById('q_'+i).value}\nTRIPLE: ${document.getElementById('t_'+i).value}\nDOUBLE: ${document.getElementById('d_'+i).value}`;
         window.open("https://wa.me/?text=" + encodeURIComponent(msg));
     }
 
     function clearAll() {
-        if(confirm("Apakah Anda yakin ingin mengosongkan semua data?")) {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(inp => { if(inp.id !== 'passInput') inp.value = ''; });
+        if(confirm("Reset semua data?")) {
+            document.querySelectorAll('input').forEach(inp => { if(inp.id !== 'passInput') inp.value = ''; });
             run();
         }
     }
