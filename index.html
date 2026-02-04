@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Firdaus Wisata - Final System</title>
+    <title>Firdaus Wisata - Final Fix</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --netflix-red: #E50914; --dark-bg: #141414; --card-bg: #1F1F1F; --text-gray: #a3a3a3; --hhr-green: #46d369; }
-        #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; z-index: 10000; }
-        .login-box { background: #000; padding: 25px; border-radius: 12px; width: 85%; max-width: 280px; text-align: center; border: 1px solid #333; }
+        #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000; }
+        .login-box { background: #111; padding: 30px; border-radius: 12px; width: 85%; max-width: 280px; text-align: center; border: 1px solid #333; }
         .login-box h1 { color: var(--netflix-red); font-weight: 900; margin: 0; font-size: 26px; }
-        .login-box input { width: 100%; padding: 12px; margin: 15px 0; background: #222; border: 1px solid #444; border-radius: 6px; color: white; text-align: center; font-size: 14px; box-sizing: border-box; }
+        .login-box input { width: 100%; padding: 12px; margin: 15px 0; background: #222; border: 1px solid #444; border-radius: 6px; color: white; text-align: center; box-sizing: border-box; }
         .login-box button { width: 100%; padding: 12px; background: var(--netflix-red); color: white; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; }
         #mainContent { display: none; }
         body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: white; margin: 0; padding: 10px; }
@@ -84,7 +84,7 @@
                                 <input type="text" id="hd${i}" class="adm" placeholder="Hotel Madinah" style="margin-bottom:12px;">
                                 <div class="grid">
                                     <div><label>SAR Makkah</label><input type="number" id="m${i}" class="adm" value="0" oninput="run()"></div>
-                                    <div><label>SAR Madinah</label><input type="number" id="d${i}" class="adm" value="0" oninput="run()"></div>
+                                    <div><label>SAR Madinah</label><input type="number" id="sd${i}" class="adm" value="0" oninput="run()"></div>
                                 </div>
                                 <div class="grid" style="margin-top:12px;">
                                     <div><label>Profit (IDR)</label><input type="number" id="p${i}" class="adm" value="0" oninput="run()"></div>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="price-row"><label>QUAD</label><input type="text" id="q${i}" value="Rp 0" readonly></div>
                             <div class="price-row"><label>TRIPLE</label><input type="text" id="t${i}" value="Rp 0" readonly></div>
-                            <div class="price-row"><label>DOUBLE</label><input type="text" id="d${i}" value="Rp 0" readonly></div>
+                            <div class="price-row"><label>DOUBLE</label><input type="text" id="d_res${i}" value="Rp 0" readonly></div>
                             <button class="btn btn-red no-print" onclick="window.print()">Simpan PDF</button>
                             <button class="btn btn-wa no-print" onclick="wa(${i})">WhatsApp</button>
                         </div>
@@ -110,7 +110,6 @@
         if(document.getElementById('passInput').value === "firdaus2024") {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-            window.scrollTo(0,0);
         } else { document.getElementById('err').style.display = 'block'; }
     }
     function doLogout() {
@@ -121,40 +120,36 @@
     function fmt(v) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v); }
     
     function run() {
-        // Ambil data input admin
         const k = parseFloat(document.getElementById('kurs').value) || 0;
-        const sarToIdr = k / 3.75; // Nilai 1 SAR dalam IDR
-        const tkt = parseFloat(document.getElementById('tiket').value) || 0;
-        const vsa = (parseFloat(document.getElementById('visa').value) || 0) * k;
-        const prl = parseFloat(document.getElementById('perlengkapan').value) || 0;
-        const malamM = parseFloat(document.getElementById('nM').value) || 0;
-        const malamD = parseFloat(document.getElementById('nD').value) || 0;
+        const s = k / 3.75; 
+        const t = parseFloat(document.getElementById('tiket').value) || 0;
+        const v = (parseFloat(document.getElementById('visa').value) || 0) * k;
+        const pr = parseFloat(document.getElementById('perlengkapan').value) || 0;
+        const nM = parseFloat(document.getElementById('nM').value) || 0;
+        const nD = parseFloat(document.getElementById('nD').value) || 0;
 
         for(let i=0; i<3; i++) {
             const hM = parseFloat(document.getElementById('m'+i).value) || 0;
-            const hD = parseFloat(document.getElementById('d'+i).value) || 0;
-            const prof = parseFloat(document.getElementById('p'+i).value) || 0;
-            const hhr = parseFloat(document.getElementById('tr'+i).value) || 0;
+            const hD = parseFloat(document.getElementById('sd'+i).value) || 0; // ID diganti jadi sd agar tidak bentrok
+            const pf = parseFloat(document.getElementById('p'+i).value) || 0;
+            const hr = parseFloat(document.getElementById('tr'+i).value) || 0;
             
             const tag = document.getElementById('hhr-'+i);
-            hhr > 0 ? tag.classList.add('show-hhr') : tag.classList.remove('show-hhr');
+            hr > 0 ? tag.classList.add('show-hhr') : tag.classList.remove('show-hhr');
 
-            // RUMUS FIX BANGET:
-            // Biaya Dasar (Tiket+Visa+Perlengkapan) + Profit + Kereta HHR + (Total Biaya Hotel dalam SAR * Kurs)
-            const biayaMakkah = (hM * malamM);
-            const biayaMadinah = (hD * malamD);
-            const base = tkt + vsa + prl + prof + hhr;
+            const totalHotelSAR = (hM * nM) + (hD * nD);
+            const baseIDR = t + v + pr + pf + hr;
 
-            document.getElementById('q'+i).value = fmt(base + ((biayaMakkah/4) + (biayaMadinah/4)) * sarToIdr);
-            document.getElementById('t'+i).value = fmt(base + ((biayaMakkah/3) + (biayaMadinah/3)) * sarToIdr);
-            document.getElementById('d'+i).value = fmt(base + ((biayaMakkah/2) + (biayaMadinah/2)) * sarToIdr);
+            document.getElementById('q'+i).value = fmt(baseIDR + (totalHotelSAR / 4) * s);
+            document.getElementById('t'+i).value = fmt(baseIDR + (totalHotelSAR / 3) * s);
+            document.getElementById('d_res'+i).value = fmt(baseIDR + (totalHotelSAR / 2) * s);
         }
     }
 
     function wa(i) {
         const n = document.getElementById('cName').value || "Jamaah";
-        const text = `*PENAWARAN UMRAH - FIRDAUS*\n\nYth. *${n}*\n\n*ESTIMASI HARGA:*\nQUAD: ${document.getElementById('q'+i).value}\nTRIPLE: ${document.getElementById('t'+i).value}\nDOUBLE: ${document.getElementById('d'+i).value}`;
-        window.open("https://wa.me/?text=" + encodeURIComponent(text));
+        const msg = `*PENAWARAN UMRAH - FIRDAUS*\n\nYth. *${n}*\n\n*ESTIMASI HARGA:*\nQUAD: ${document.getElementById('q'+i).value}\nTRIPLE: ${document.getElementById('t'+i).value}\nDOUBLE: ${document.getElementById('d_res'+i).value}`;
+        window.open("https://wa.me/?text=" + encodeURIComponent(msg));
     }
 </script>
 </body>
