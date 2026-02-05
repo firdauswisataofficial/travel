@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>V17.0 MASTER - FIRDAUS WISATA</title>
+    <title>V17.2 ULTIMATE - FIRDAUS WISATA</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { --gold: #C5A059; --bg: #050505; --card: #111111; --input: #1A1A1A; --text: #FFFFFF; --text-dim: #888888; --danger: #FF4D4D; --success: #00FF94; }
+        :root { --gold: #C5A059; --bg: #050505; --card: #111111; --input: #1A1A1A; --text: #FFFFFF; --text-dim: #888888; --success: #00FF94; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg); color: var(--text); padding-bottom: 120px; }
         .finance-header { background: linear-gradient(180deg, #1A1A1A 0%, #050505 100%); padding: 20px; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(15px); }
@@ -15,54 +15,51 @@
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .stat-box { background: var(--card); padding: 10px; border-radius: 12px; border: 1px solid #222; }
         .stat-box p { font-size: 7px; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
-        .screen { display: none; padding: 0 20px; animation: fadeIn 0.3s ease; }
+        .screen { display: none; padding: 0 20px; animation: fadeIn 0.2s ease; }
         .screen.active { display: block; }
         .glass-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 18px; margin-bottom: 15px; }
         label { font-size: 7px; color: var(--gold); font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; }
-        input { background: var(--input); border: 1px solid #333; padding: 10px; border-radius: 8px; color: white; font-size: 12px; width: 100%; }
+        input, textarea, select { background: var(--input); border: 1px solid #333; padding: 10px; border-radius: 8px; color: white; font-size: 12px; width: 100%; }
+        textarea { height: 150px; resize: none; line-height: 1.5; }
         .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
         .room-section { background: #000; padding: 15px; border-radius: 12px; border: 1px solid #222; margin-bottom: 15px; }
         .room-title { font-size: 10px; font-weight: 800; color: var(--gold); margin-bottom: 10px; border-bottom: 1px solid #222; padding-bottom: 5px; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95); display: flex; border-top: 1px solid #222; z-index: 1000; padding: 15px 0; }
-        .nav-item { flex: 1; text-align: center; color: var(--text-dim); font-size: 9px; font-weight: 700; cursor: pointer; }
+        .hpp-locked { background: #222 !important; color: #888 !important; border: 1px dashed #444 !important; font-weight: 700; }
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95); display: flex; border-top: 1px solid #222; z-index: 1000; padding: 10px 0; }
+        .nav-item { flex: 1; text-align: center; color: var(--text-dim); font-size: 8px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
         .nav-item.active { color: var(--gold); }
-        .btn-print { width: 100%; padding: 18px; border-radius: 16px; background: var(--gold); color: #000; font-weight: 800; border: none; margin-top: 5px; cursor: pointer; }
+        .btn-print { width: 100%; padding: 18px; border-radius: 16px; background: var(--gold); color: #000; font-weight: 800; border: none; margin-top: 10px; cursor: pointer; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div id="mainApp">
     <div class="finance-header">
-        <div class="main-balance">
-            <p style="font-size:8px; color:var(--text-dim); text-align:center;">LABA BERSIH FIRDAUS WISATA INSANI</p>
-            <h1 id="topProfit">Rp 0</h1>
-        </div>
+        <div class="main-balance"><p style="font-size:8px; color:var(--text-dim); text-align:center;">LABA BERSIH FIRDAUS WISATA INSANI</p><h1 id="topProfit">Rp 0</h1></div>
         <div class="stat-grid">
-            <div class="stat-box"><p>Total Omzet</p><h2 id="topRev" style="font-size:12px;">Rp 0</h2></div>
-            <div class="stat-box"><p>Total Modal (HPP)</p><h2 id="topHpp" style="font-size:12px;">Rp 0</h2></div>
+            <div class="stat-box"><p>Omzet</p><h2 id="topRev" style="font-size:11px;">Rp 0</h2></div>
+            <div class="stat-box"><p>HPP Locked</p><h2 id="topHpp" style="font-size:11px;">Rp 0</h2></div>
         </div>
     </div>
 
     <div id="screen-finance" class="screen active">
         <div class="glass-card" style="margin-top:20px">
-            <label>1. INFORMASI PAKET & AKOMODASI</label>
+            <label>1. AKOMODASI & DURASI</label>
+            <div style="margin-bottom:10px;"><label>Maskapai</label><input type="text" id="pAir" value="Saudi Airlines" oninput="saveData()"></div>
             <div class="row-grid">
-                <div style="grid-column: span 2;"><label>Nama Maskapai</label><input type="text" id="pAir" value="Saudi Airlines" oninput="saveText()"></div>
-            </div>
-            <div class="row-grid">
-                <div><label>Hotel Makkah</label><input type="text" id="hMekName" value="Pullman Zamzam" oninput="saveText()"></div>
+                <div><label>Makkah Hotel</label><input type="text" id="hMek" value="Pullman Zamzam" oninput="saveData()"></div>
                 <div><label>Malam</label><input type="number" id="nMek" value="5" oninput="calcAll()"></div>
             </div>
             <div class="row-grid">
-                <div><label>Hotel Madinah</label><input type="text" id="hMadName" value="Frontel Madinah" oninput="saveText()"></div>
+                <div><label>Madinah Hotel</label><input type="text" id="hMad" value="Frontel Madinah" oninput="saveData()"></div>
                 <div><label>Malam</label><input type="number" id="nMad" value="4" oninput="calcAll()"></div>
             </div>
         </div>
-
         <div class="glass-card">
-            <label>2. BIAYA TETAP & KURS</label>
+            <label>2. BIAYA TETAP (PER PAX)</label>
             <div class="row-grid">
-                <div><label>Tiket Pesawat (IDR)</label><input type="number" id="tk" value="14500000" oninput="calcAll()"></div>
+                <div><label>Tiket (IDR)</label><input type="number" id="tk" value="14500000" oninput="calcAll()"></div>
                 <div><label>Visa (USD)</label><input type="number" id="vs" value="185" oninput="calcAll()"></div>
             </div>
             <div class="row-grid">
@@ -70,169 +67,150 @@
                 <div><label>Kurs SAR</label><input type="number" id="ks" value="4350" oninput="calcAll()"></div>
             </div>
             <div class="row-grid">
-                <div><label>Kereta Cepat (SAR)</label><input type="number" id="train" value="250" oninput="calcAll()"></div>
-                <div><label>Handling (IDR)</label><input type="number" id="hp" value="1000000" oninput="calcAll()"></div>
-            </div>
-            <div class="row-grid">
-                <div><label>LA & Asuransi (IDR)</label><input type="number" id="la" value="1000000" oninput="calcAll()"></div>
-                <div><label>Perlengkapan (IDR)</label><input type="number" id="per" value="500000" oninput="calcAll()"></div>
+                <div><label>Kereta (SAR)</label><input type="number" id="train" value="250" oninput="calcAll()"></div>
+                <div><label>Handling+LA+Perlkp</label><input type="number" id="la" value="3500000" oninput="calcAll()"></div>
             </div>
         </div>
-
-        <div id="activePackageEditor"></div>
-        <button class="btn-print" onclick="generatePDF()">CETAK PENAWARAN (PDF)</button>
+        <div id="pricingGrid"></div>
+        <button class="btn-print" onclick="generatePDF()">DOWNLOAD PENAWARAN (PDF)</button>
     </div>
 
-    <div id="screen-inventory" class="screen">
-        <h3 style="color:var(--gold); font-size:11px; margin: 20px 0 10px 0;">MANIFEST JEMAAH</h3>
+    <div id="screen-manifest" class="screen">
+        <h3 style="color:var(--gold); font-size:11px; margin: 25px 0 10px 0;">MANIFEST JEMAAH</h3>
         <div id="roomList"></div>
-        <button onclick="addRoom()" style="background:none; border:1px dashed var(--gold); color:var(--gold); padding:12px; border-radius:12px; width:100%; font-size:11px; font-weight:800;">+ TAMBAH UNIT</button>
+        <button onclick="addRoom()" style="background:none; border:1px dashed var(--gold); color:var(--gold); padding:15px; border-radius:12px; width:100%; font-size:11px; font-weight:800;">+ TAMBAH UNIT</button>
+    </div>
+
+    <div id="screen-terms" class="screen">
+        <h3 style="color:var(--gold); font-size:11px; margin: 25px 0 10px 0;">SYARAT & KETENTUAN</h3>
+        <div class="glass-card">
+            <label>Tulis Terms (Tampil di PDF)</label>
+            <textarea id="pTerms" oninput="saveData()" placeholder="1. DP Minimal Rp 10jt..."></textarea>
+        </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active" id="nav-f" onclick="setTab('finance')">PRICING</div>
-        <div class="nav-item" id="nav-i" onclick="setTab('inventory')">MANIFEST</div>
+        <div class="nav-item active" onclick="setTab('finance')"><span>💰</span>PRICING</div>
+        <div class="nav-item" onclick="setTab('manifest')"><span>📋</span>MANIFEST</div>
+        <div class="nav-item" onclick="setTab('terms')"><span>📄</span>TERMS</div>
     </div>
 </div>
 
 <script>
-    let p = JSON.parse(localStorage.getItem('fwi_v17_p')) || {
-        vMekQ: 2000, vMekT: 2400, vMekD: 2800,
-        vMadQ: 1600, vMadT: 1900, vMadD: 2300,
-        hQ: 0, hT: 0, hD: 0, profQ: 3000000, profT: 3500000, profD: 4000000, jQ: 0, jT: 0, jD: 0,
-        air: "Saudi Airlines", hm: "Pullman Zamzam", hn: "Frontel Madinah"
+    let p = JSON.parse(localStorage.getItem('fwi_v17_2_p')) || {
+        vMekQ: 2000, vMekT: 2400, vMekD: 2800, vMadQ: 1600, vMadT: 1900, vMadD: 2300,
+        profQ: 3000000, profT: 3500000, profD: 4000000, jQ: 0, jT: 0, jD: 0,
+        air: "Saudi Airlines", hm: "Pullman Zamzam", hn: "Frontel Madinah",
+        terms: "1. Harga dapat berubah sesuai kurs\n2. Pelunasan H-30 sebelum berangkat\n3. Biaya pembatalan sesuai ketentuan"
     };
-    let rooms = JSON.parse(localStorage.getItem('fwi_v17_r')) || [{ type: 'Q', pax: 4 }];
+    let rooms = JSON.parse(localStorage.getItem('fwi_v17_2_r')) || [{ type: 'Q', pax: 4 }];
+    let cHpp = { Q:0, T:0, D:0 };
 
     function setTab(t) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.getElementById('screen-'+t).classList.add('active');
-        document.getElementById('nav-'+t.charAt(0)).classList.add('active');
+        event.currentTarget.classList.add('active');
     }
 
-    function saveText() {
+    function saveData() {
         p.air = document.getElementById('pAir').value;
-        p.hm = document.getElementById('hMekName').value;
-        p.hn = document.getElementById('hMadName').value;
-        localStorage.setItem('fwi_v17_p', JSON.stringify(p));
+        p.hm = document.getElementById('hMek').value;
+        p.hn = document.getElementById('hMad').value;
+        p.terms = document.getElementById('pTerms').value;
+        localStorage.setItem('fwi_v17_2_p', JSON.stringify(p));
     }
 
-    function updateP(key, val, trigger) {
-        p[key] = parseFloat(val) || 0;
-        calcAll(trigger);
-    }
-
+    function updateVal(key, val, trigger) { p[key] = parseFloat(val) || 0; calcAll(trigger); }
     function addRoom() { rooms.push({ type:'Q', pax:4 }); calcAll(); }
-    function updateRoom(i, f, v) { rooms[i][f] = (f === 'pax') ? parseInt(v) : v; calcAll(); }
+    function updateRoom(i, f, v) { rooms[i][f] = (f==='pax')?parseInt(v):v; calcAll(); }
 
     function calcAll(trigger) {
         const kS = parseFloat(document.getElementById('ks').value) || 0;
         const kU = parseFloat(document.getElementById('ku').value) || 0;
-        const trIDR = (parseFloat(document.getElementById('train').value) || 0) * kS;
-        const fixPax = (parseFloat(document.getElementById('tk').value) || 0) + 
-                       ((parseFloat(document.getElementById('vs').value) || 0) * kU) + 
-                       (parseFloat(document.getElementById('hp').value) || 0) + 
-                       (parseFloat(document.getElementById('la').value) || 0) +
-                       (parseFloat(document.getElementById('per').value) || 0) + trIDR;
-        
+        const fix = (parseFloat(document.getElementById('tk').value) || 0) + ((parseFloat(document.getElementById('vs').value) || 0) * kU) + 
+                    (parseFloat(document.getElementById('la').value) || 0) + ((parseFloat(document.getElementById('train').value) || 0) * kS);
         const nM = parseFloat(document.getElementById('nMek').value) || 0;
         const nD = parseFloat(document.getElementById('nMad').value) || 0;
 
-        const autoHQ = fixPax + ( ((p.vMekQ * nM) + (p.vMadQ * nD)) / 4 ) * kS;
-        const autoHT = fixPax + ( ((p.vMekT * nM) + (p.vMadT * nD)) / 3 ) * kS;
-        const autoHD = fixPax + ( ((p.vMekD * nM) + (p.vMadD * nD)) / 2 ) * kS;
+        cHpp.Q = fix + ( ((p.vMekQ*nM) + (p.vMadQ*nD)) / 4 ) * kS;
+        cHpp.T = fix + ( ((p.vMekT*nM) + (p.vMadT*nD)) / 3 ) * kS;
+        cHpp.D = fix + ( ((p.vMekD*nM) + (p.vMadD*nD)) / 2 ) * kS;
 
-        if(!trigger || trigger === 'vendor') {
-            p.hQ = autoHQ; p.hT = autoHT; p.hD = autoHD;
-            p.jQ = p.hQ + p.profQ; p.jT = p.hT + p.profT; p.jD = p.hD + p.profD;
-        } else if(trigger === 'hpp' || trigger === 'prof') {
-            p.jQ = p.hQ + p.profQ; p.jT = p.hT + p.profT; p.jD = p.hD + p.profD;
-        } else if(trigger === 'jual') {
-            p.profQ = p.jQ - p.hQ; p.profT = p.jT - p.hT; p.profD = p.jD - p.hD;
+        if(!trigger || trigger==='vendor' || trigger==='profit') {
+            p.jQ = cHpp.Q + p.profQ; p.jT = cHpp.T + p.profT; p.jD = cHpp.D + p.profD;
+        } else if(trigger==='jual') {
+            p.profQ = p.jQ - cHpp.Q; p.profT = p.jT - cHpp.T; p.profD = p.jD - cHpp.D;
         }
 
-        renderPricing(); renderManifest();
-        localStorage.setItem('fwi_v17_p', JSON.stringify(p));
-        localStorage.setItem('fwi_v17_r', JSON.stringify(rooms));
+        renderPricing(); renderManifest(); saveData();
+        localStorage.setItem('fwi_v17_2_r', JSON.stringify(rooms));
     }
 
     function renderPricing() {
-        document.getElementById('activePackageEditor').innerHTML = `
-            <div class="glass-card">
-                <label>3. PERHITUNGAN VENDOR & HARGA JUAL JEMAAH</label>
-                ${renderBlock('QUAD', 'Q', 4)}
-                ${renderBlock('TRIPLE', 'T', 3)}
-                ${renderBlock('DOUBLE', 'D', 2)}
-            </div>`;
-    }
-
-    function renderBlock(label, key, cap) {
-        return `
-            <div class="room-section">
-                <div class="room-title">PAKET ${label} (BER-${cap})</div>
-                <div class="row-grid">
-                    <div><label>Mekkah (Room/Night SAR)</label><input type="number" value="${p['vMek'+key]}" oninput="updateP('vMek${key}', this.value, 'vendor')"></div>
-                    <div><label>Madinah (Room/Night SAR)</label><input type="number" value="${p['vMad'+key]}" oninput="updateP('vMad${key}', this.value, 'vendor')"></div>
-                </div>
-                <div class="row-grid" style="border-top:1px solid #222; padding-top:10px; margin-top:5px">
-                    <div><label>HPP / MODAL (IDR)</label><input type="number" style="background:#222" value="${Math.round(p['h'+key])}" oninput="updateP('h${key}', this.value, 'hpp')"></div>
-                    <div><label>PROFIT (IDR)</label><input type="number" style="color:var(--success)" value="${Math.round(p['prof'+key])}" oninput="updateP('prof${key}', this.value, 'prof')"></div>
-                </div>
-                <div style="margin-top:5px">
-                    <label>HARGA JUAL JEMAAH (IDR)</label>
-                    <div style="position:relative">
-                        <span style="position:absolute; left:10px; top:10px; color:var(--gold); font-weight:800">Rp</span>
-                        <input type="number" style="padding-left:35px; color:var(--gold); font-weight:800; font-size:14px" value="${Math.round(p['j'+key])}" oninput="updateP('j${key}', this.value, 'jual')">
-                    </div>
-                </div>
+        document.getElementById('pricingGrid').innerHTML = `
+            <div class="glass-card"><label>3. HARGA VENDOR & JUAL (LOCKED)</label>
+                ${['QUAD','TRIPLE','DOUBLE'].map((l,i) => {
+                    let k = l.charAt(0); let cap = [4,3,2][i];
+                    return `<div class="room-section">
+                        <div class="room-title">PAKET ${l} (BER-${cap})</div>
+                        <div class="row-grid">
+                            <div><label>Mek (Room/SAR)</label><input type="number" value="${p['vMek'+k]}" oninput="updateVal('vMek${k}', this.value, 'vendor')"></div>
+                            <div><label>Mad (Room/SAR)</label><input type="number" value="${p['vMad'+k]}" oninput="updateVal('vMad${k}', this.value, 'vendor')"></div>
+                        </div>
+                        <div class="row-grid" style="border-top:1px solid #222; padding-top:10px">
+                            <div><label>HPP FIXED</label><input type="text" class="hpp-locked" value="${fmt(cHpp[k])}" disabled></div>
+                            <div><label>PROFIT</label><input type="number" style="color:var(--success)" value="${Math.round(p['prof'+k])}" oninput="updateVal('prof${k}', this.value, 'profit')"></div>
+                        </div>
+                        <div><label>HARGA JUAL JEMAAH (Rp)</label><input type="number" style="color:var(--gold); font-weight:800; font-size:14px" value="${Math.round(p['j'+k])}" oninput="updateVal('j${k}', this.value, 'jual')"></div>
+                    </div>`;
+                }).join('')}
             </div>`;
     }
 
     function renderManifest() {
-        let tRev = 0, tHpp = 0;
-        const rDiv = document.getElementById('roomList'); rDiv.innerHTML = "";
+        let tR = 0, tH = 0; const rD = document.getElementById('roomList'); rD.innerHTML = "";
         rooms.forEach((r, i) => {
-            const h = r.type==='Q'?p.hQ:(r.type==='T'?p.hT:p.hD);
-            const j = r.type==='Q'?p.jQ:(r.type==='T'?p.jT:p.jD);
-            tRev += (j * r.pax); tHpp += (h * r.pax);
-            rDiv.innerHTML += `
-                <div class="glass-card" style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>Unit ${i+1}</span>
-                    <select onchange="updateRoom(${i},'type',this.value)" style="background:#000; color:#fff; padding:5px; border:1px solid #444">
-                        <option value="Q" ${r.type=='Q'?'selected':''}>QUAD</option>
-                        <option value="T" ${r.type=='T'?'selected':''}>TRIP</option>
-                        <option value="D" ${r.type=='D'?'selected':''}>DBL</option>
-                    </select>
-                    <input type="number" style="width:50px" value="${r.pax}" oninput="updateRoom(${i},'pax',this.value)">
-                </div>`;
+            tR += (p['j'+r.type] * r.pax); tH += (cHpp[r.type] * r.pax);
+            rD.innerHTML += `<div class="glass-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>Unit ${i+1}</span>
+                <select onchange="updateRoom(${i},'type',this.value)" style="width:80px">
+                    <option value="Q" ${r.type=='Q'?'selected':''}>QUAD</option>
+                    <option value="T" ${r.type=='T'?'selected':''}>TRIP</option>
+                    <option value="D" ${r.type=='D'?'selected':''}>DBL</option>
+                </select>
+                <input type="number" style="width:50px" value="${r.pax}" oninput="updateRoom(${i},'pax',this.value)">
+            </div>`;
         });
-        document.getElementById('topProfit').innerText = fmt(tRev - tHpp);
-        document.getElementById('topRev').innerText = fmt(tRev);
-        document.getElementById('topHpp').innerText = fmt(tHpp);
+        document.getElementById('topProfit').innerText = fmt(tR - tH);
+        document.getElementById('topRev').innerText = fmt(tR);
+        document.getElementById('topHpp').innerText = fmt(tH);
     }
 
     function fmt(v) { return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v); }
-    
+
     function generatePDF() {
         const { jsPDF } = window.jspdf; const doc = new jsPDF();
-        doc.setFontSize(16); doc.text("PENAWARAN UMRAH - FIRDAUS WISATA INSANI", 20, 20);
-        doc.setFontSize(10);
-        doc.text(`Maskapai: ${p.air}`, 20, 35);
-        doc.text(`Hotel Makkah: ${p.hm} (${document.getElementById('nMek').value} Malam)`, 20, 42);
-        doc.text(`Hotel Madinah: ${p.hn} (${document.getElementById('nMad').value} Malam)`, 20, 49);
-        doc.line(20, 55, 190, 55);
-        doc.text("HARGA JUAL PER PAX:", 20, 65);
-        doc.text(`- QUAD ROOM: ${fmt(p.jQ)}`, 25, 75);
-        doc.text(`- TRIPLE ROOM: ${fmt(p.jT)}`, 25, 85);
-        doc.text(`- DOUBLE ROOM: ${fmt(p.jD)}`, 25, 95);
-        doc.save(`Penawaran_FWI_${p.air}.pdf`);
+        doc.setTextColor(197, 160, 89); doc.setFontSize(18); doc.text("FIRDAUS WISATA INSANI", 20, 20);
+        doc.setTextColor(0,0,0); doc.setFontSize(10); doc.text("PENAWARAN HARGA UMRAH", 20, 28);
+        doc.line(20, 32, 190, 32);
+        doc.text(`Maskapai: ${p.air}`, 20, 42);
+        doc.text(`Hotel Makkah: ${p.hm} (${document.getElementById('nMek').value} Malam)`, 20, 48);
+        doc.text(`Hotel Madinah: ${p.hn} (${document.getElementById('nMad').value} Malam)`, 20, 54);
+        doc.setFontSize(12); doc.text("HARGA PAKET PER PAX:", 20, 68);
+        doc.text(`- QUAD ROOM: ${fmt(p.jQ)}`, 25, 78);
+        doc.text(`- TRIPLE ROOM: ${fmt(p.jT)}`, 25, 86);
+        doc.text(`- DOUBLE ROOM: ${fmt(p.jD)}`, 25, 94);
+        doc.setFontSize(10); doc.text("SYARAT & KETENTUAN:", 20, 110);
+        doc.setFontSize(8); doc.text(p.terms, 20, 116);
+        doc.save(`Penawaran_FWI.pdf`);
     }
 
     window.onload = () => {
         document.getElementById('pAir').value = p.air;
-        document.getElementById('hMekName').value = p.hm;
-        document.getElementById('hMadName').value = p.hn;
+        document.getElementById('hMek').value = p.hm;
+        document.getElementById('hMad').value = p.hn;
+        document.getElementById('pTerms').value = p.terms;
         calcAll();
     };
 </script>
