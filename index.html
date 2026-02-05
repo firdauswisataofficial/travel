@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>V15. ULTIMATE SYSTEM - FIRDAUS WISATA</title>
+    <title>V15. ULTIMATE SYSTEM - FIXED ROOM RATE</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -41,7 +41,7 @@
 <div id="mainApp">
     <div class="finance-header">
         <div class="main-balance">
-            <p style="font-size:9px; color:var(--text-dim); text-align:center; letter-spacing:2px;">V15. ULTIMATE SYSTEM</p>
+            <p style="font-size:9px; color:var(--text-dim); text-align:center; letter-spacing:2px;">V15. ULTIMATE SYSTEM (FIXED)</p>
             <h1 id="topProfit">Rp 0</h1>
             <p id="topLeak" style="color:var(--danger); font-size:9px; text-align:center; font-weight:800; margin-top:5px;"></p>
         </div>
@@ -103,8 +103,7 @@
     };
 
     let packages = JSON.parse(localStorage.getItem('firdaus_v15_pkg')) || [
-        { name: "BRONZE", air: "Lion Air", hMek: "Azka Al Safa", hMad: "Diyar Madinah", nMek: 4, nMad: 3, smekQ:450, smekT:550, smekD:700, smadQ:350, smadT:450, smadD:600, margin: 2500000, jualQ:28500000, jualT:29500000, jualD:31000000 },
-        { name: "SILVER", air: "Oman Air", hMek: "Anjum", hMad: "Grand Plaza", nMek: 5, nMad: 4, smekQ:700, smekT:850, smekD:1000, smadQ:500, smadT:650, smadD:800, margin: 3000000, jualQ:32500000, jualT:34000000, jualD:36000000 }
+        { name: "BRONZE", air: "Lion Air", hMek: "Azka Al Safa", hMad: "Diyar Madinah", nMek: 4, nMad: 3, smekQ:1600, smekT:1800, smekD:2000, smadQ:1200, smadT:1500, smadD:1800, margin: 2500000, jualQ:28500000, jualT:29500000, jualD:31000000 }
     ];
     let rooms = JSON.parse(localStorage.getItem('firdaus_v15_rms')) || [{ type: 'Q', pax: 4 }];
     let activeIdx = 0;
@@ -119,7 +118,7 @@
 
     function addRoom() { rooms.push({ type:'Q', pax:4 }); saveAndCalc(); }
     function updateRoom(i, f, v) { rooms[i][f] = (f === 'pax') ? parseInt(v) : v; saveAndCalc(); }
-    function updatePkg(f, v) { packages[activeIdx][f] = (f.includes('jual') || f.includes('sm') || f === 'margin' || f === 'n') ? parseFloat(v) || 0 : v; saveAndCalc(); }
+    function updatePkg(f, v) { packages[activeIdx][f] = (f.includes('jual') || f.includes('sm') || f === 'margin' || f === 'nMek' || f === 'nMad') ? parseFloat(v) || 0 : v; saveAndCalc(); }
 
     function saveAndCalc() {
         const kS = parseFloat(document.getElementById('ks').value)||0;
@@ -133,9 +132,11 @@
         const p = packages[activeIdx];
         document.getElementById('pkgNameDisplay').innerText = `PAKET ${p.name}`;
 
-        const hppQ = tkt + vsa + h_la + h_prl + h_hhr + (((p.smekQ * p.nMek) + (p.smadQ * p.nMad)) * kS);
-        const hppT = tkt + vsa + h_la + h_prl + h_hhr + (((p.smekT * p.nMek) + (p.smadT * p.nMad)) * kS);
-        const hppD = tkt + vsa + h_la + h_prl + h_hhr + (((p.smekD * p.nMek) + (p.smadD * p.nMad)) * kS);
+        // LOGIKA BARU: HARGA HOTEL ADALAH HARGA KAMAR (ROOM RATE)
+        // Maka HPP per Pax = (Harga Kamar / Kapasitas Kamar) * Jumlah Malam
+        const hppQ = tkt + vsa + h_la + h_prl + h_hhr + ( ((p.smekQ/4)*p.nMek) + ((p.smadQ/4)*p.nMad) ) * kS;
+        const hppT = tkt + vsa + h_la + h_prl + h_hhr + ( ((p.smekT/3)*p.nMek) + ((p.smadT/3)*p.nMad) ) * kS;
+        const hppD = tkt + vsa + h_la + h_prl + h_hhr + ( ((p.smekD/2)*p.nMek) + ((p.smadD/2)*p.nMad) ) * kS;
 
         const editor = document.getElementById('activePackageEditor');
         editor.innerHTML = `
@@ -156,33 +157,33 @@
                 </div>
                 
                 <div class="room-section">
-                    <div class="room-title">QUAD ROOM <span>BER-4</span></div>
+                    <div class="room-title">QUAD ROOM (SAR/KAMAR) <span>CAPACITY: 4</span></div>
                     <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
-                        <input type="number" value="${p.smekQ}" oninput="updatePkg('smekQ',this.value)" placeholder="SAR">
-                        <input type="number" value="${p.smadQ}" oninput="updatePkg('smadQ',this.value)" placeholder="SAR">
-                        <input type="number" value="${p.jualQ}" oninput="updatePkg('jualQ',this.value)" placeholder="Jual">
+                        <input type="number" value="${p.smekQ}" oninput="updatePkg('smekQ',this.value)" placeholder="Mek/Rm">
+                        <input type="number" value="${p.smadQ}" oninput="updatePkg('smadQ',this.value)" placeholder="Mad/Rm">
+                        <input type="number" value="${p.jualQ}" oninput="updatePkg('jualQ',this.value)" placeholder="Jual/Pax">
                     </div>
-                    <div class="hpp-tag">HPP: ${fmt(hppQ)} | <span style="color:#FFF">Target: ${fmt(hppQ + p.margin)}</span></div>
+                    <div class="hpp-tag">HPP/Pax: ${fmt(hppQ)} | Target: ${fmt(hppQ + p.margin)}</div>
                 </div>
 
                 <div class="room-section">
-                    <div class="room-title">TRIPLE ROOM <span>BER-3</span></div>
+                    <div class="room-title">TRIPLE ROOM (SAR/KAMAR) <span>CAPACITY: 3</span></div>
                     <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
                         <input type="number" value="${p.smekT}" oninput="updatePkg('smekT',this.value)">
                         <input type="number" value="${p.smadT}" oninput="updatePkg('smadT',this.value)">
                         <input type="number" value="${p.jualT}" oninput="updatePkg('jualT',this.value)">
                     </div>
-                    <div class="hpp-tag">HPP: ${fmt(hppT)} | <span style="color:#FFF">Target: ${fmt(hppT + p.margin)}</span></div>
+                    <div class="hpp-tag">HPP/Pax: ${fmt(hppT)} | Target: ${fmt(hppT + p.margin)}</div>
                 </div>
 
                 <div class="room-section">
-                    <div class="room-title">DOUBLE ROOM <span>BER-2</span></div>
+                    <div class="room-title">DOUBLE ROOM (SAR/KAMAR) <span>CAPACITY: 2</span></div>
                     <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
                         <input type="number" value="${p.smekD}" oninput="updatePkg('smekD',this.value)">
                         <input type="number" value="${p.smadD}" oninput="updatePkg('smadD',this.value)">
                         <input type="number" value="${p.jualD}" oninput="updatePkg('jualD',this.value)">
                     </div>
-                    <div class="hpp-tag">HPP: ${fmt(hppD)} | <span style="color:#FFF">Target: ${fmt(hppD + p.margin)}</span></div>
+                    <div class="hpp-tag">HPP/Pax: ${fmt(hppD)} | Target: ${fmt(hppD + p.margin)}</div>
                 </div>
             </div>`;
 
@@ -192,10 +193,13 @@
             const hpp_u = r.type==='Q'?hppQ : (r.type==='T'?hppT:hppD);
             const jual_u = r.type==='Q'?p.jualQ : (r.type==='T'?p.jualT:p.jualD);
             totalRev += (jual_u * r.pax); totalHpp += (hpp_u * r.pax);
-            let limit = r.type==='Q'?4:(r.type==='T'?3:2);
+            
+            let cap = r.type==='Q'?4:(r.type==='T'?3:2);
             let loss = 0;
-            if(r.pax < limit) {
-                loss = (limit - r.pax) * (((r.type==='Q'?p.smekQ:r.type==='T'?p.smekT:p.smekD)*p.nMek)+((r.type==='Q'?p.smadQ:r.type==='T'?p.smadT:p.smadD)*p.nMad)) * kS;
+            if(r.pax < cap) {
+                // Loss Bed dihitung per kasur kosong berdasarkan harga kamar harian
+                let dailyRateSAR = r.type==='Q' ? (p.smekQ/4*p.nMek + p.smadQ/4*p.nMad) : (r.type==='T' ? p.smekT/3*p.nMek + p.smadT/3*p.nMad : p.smekD/2*p.nMek + p.smadD/2*p.nMad);
+                loss = (cap - r.pax) * dailyRateSAR * kS;
                 totalLeak += loss;
             }
             tbody.innerHTML += `<tr>
