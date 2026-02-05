@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>V16.0 FINAL - FIRDAUS WISATA INSANI</title>
+    <title>FINAL V16.4 - FIRDAUS WISATA INSANI</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -15,17 +15,14 @@
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .stat-box { background: var(--card); padding: 10px; border-radius: 12px; border: 1px solid #222; }
         .stat-box p { font-size: 7px; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
-        .pkg-nav { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
-        .pkg-nav button { background: var(--gold); border: none; padding: 10px 15px; border-radius: 10px; font-weight: 800; cursor: pointer; color: #000; font-size: 10px; }
-        .pkg-title { font-size: 14px; font-weight: 800; color: var(--gold); text-transform: uppercase; }
         .screen { display: none; padding: 0 20px; animation: fadeIn 0.3s ease; }
         .screen.active { display: block; }
         .glass-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 18px; margin-bottom: 15px; }
         label { font-size: 7px; color: var(--gold); font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: block; }
         input, select, textarea { background: var(--input); border: 1px solid #333; padding: 12px; border-radius: 8px; color: white; outline: none; font-size: 13px; width: 100%; }
+        .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
         .room-section { background: #000; padding: 12px; border-radius: 12px; border: 1px solid #222; margin-bottom: 10px; }
         .room-title { font-size: 9px; font-weight: 800; color: var(--gold); margin-bottom: 8px; display: flex; justify-content: space-between; }
-        .profit-tag { font-size: 9px; font-weight: 800; color: var(--success); margin-top: 5px; }
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: flex; border-top: 1px solid #222; z-index: 1000; padding: 15px 0; }
         .nav-item { flex: 1; text-align: center; color: var(--text-dim); font-size: 9px; font-weight: 700; cursor: pointer; }
         .nav-item.active { color: var(--gold); }
@@ -38,7 +35,7 @@
 <div id="mainApp">
     <div class="finance-header">
         <div class="main-balance">
-            <p style="font-size:8px; color:var(--text-dim); text-align:center; letter-spacing:2px;">TOTAL ESTIMASI LABA BERSIH</p>
+            <p style="font-size:8px; color:var(--text-dim); text-align:center; letter-spacing:2px;">LABA BERSIH ESTIMASI</p>
             <h1 id="topProfit">Rp 0</h1>
             <p id="topLeak" style="color:var(--danger); font-size:9px; text-align:center; font-weight:800; margin-top:4px;"></p>
         </div>
@@ -50,59 +47,75 @@
 
     <div id="screen-finance" class="screen active">
         <div class="glass-card" style="margin-top:20px">
-            <label>FIXED COST & KURS</label>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                <div class="input-group"><label>Kurs SAR</label><input type="number" id="ks" value="4350" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Tiket Pesawat PP</label><input type="number" id="tk" value="14500000" oninput="saveAndCalc()"></div>
+            <label>1. KURS & BIAYA TETAP (IDR/USD)</label>
+            <div class="row-grid">
+                <div><label>Kurs SAR</label><input type="number" id="ks" value="4350" oninput="saveAndCalc()"></div>
+                <div><label>Kurs USD</label><input type="number" id="ku" value="15900" oninput="saveAndCalc()"></div>
+            </div>
+            <div class="row-grid">
+                <div><label>Tiket Pesawat</label><input type="number" id="tk" value="14500000" oninput="saveAndCalc()"></div>
+                <div><label>Visa (USD)</label><input type="number" id="vs" value="185" oninput="saveAndCalc()"></div>
+            </div>
+            <div class="row-grid">
+                <div><label>Handling & Perlkp</label><input type="number" id="hp" value="1500000" oninput="saveAndCalc()"></div>
+                <div><label>LA & Asuransi</label><input type="number" id="la" value="1500000" oninput="saveAndCalc()"></div>
             </div>
         </div>
 
-        <div class="pkg-nav">
-            <button onclick="changePkg(-1)">PREV</button>
-            <div class="pkg-title" id="pkgNameDisplay">---</div>
-            <button onclick="changePkg(1)">NEXT</button>
+        <div class="glass-card">
+            <label>2. DETAIL PAKET & HOTEL</label>
+            <input type="text" id="pName" placeholder="Nama Paket" oninput="updatePkgDetail('name', this.value)" style="margin-bottom:8px">
+            <div class="row-grid">
+                <input type="text" id="pAir" placeholder="Maskapai" oninput="updatePkgDetail('air', this.value)">
+                <input type="number" id="pMekN" placeholder="Malam Makkah" oninput="updatePkgDetail('nMek', this.value)">
+            </div>
+            <div class="row-grid">
+                <input type="text" id="pHMek" placeholder="Hotel Makkah" oninput="updatePkgDetail('hMek', this.value)">
+                <input type="text" id="pHMad" placeholder="Hotel Madinah" oninput="updatePkgDetail('hMad', this.value)">
+            </div>
         </div>
 
         <div id="activePackageEditor"></div>
-        <button class="btn-print" onclick="generatePDF()">CETAK PENAWARAN (PDF)</button>
-    </div>
-
-    <div id="screen-terms" class="screen">
-        <h3 style="color:var(--gold); font-size:11px; margin: 20px 0 10px 0;">SETTING PENAWARAN PDF</h3>
-        <div class="glass-card">
-            <label>Include (Harga Termasuk)</label>
-            <textarea id="in_text" style="height:100px; font-size:11px;" oninput="saveTerms()"></textarea>
-            <label style="margin-top:10px">S&K (Syarat & Ketentuan)</label>
-            <textarea id="snk_text" style="height:100px; font-size:11px;" oninput="saveTerms()"></textarea>
-        </div>
+        <button class="btn-print" onclick="generatePDF()">DOWNLOAD PENAWARAN (PDF)</button>
     </div>
 
     <div id="screen-inventory" class="screen">
-        <h3 style="color:var(--gold); font-size:11px; margin: 20px 0 10px 0;">MANIFEST & SHARED ROOM</h3>
+        <h3 style="color:var(--gold); font-size:11px; margin: 20px 0 10px 0;">MANIFEST JEMAAH & LOSS BED</h3>
         <div id="roomList"></div>
-        <button onclick="addRoom()" style="background:none; border:1px dashed var(--gold); color:var(--gold); padding:12px; border-radius:12px; width:100%; font-size:11px; font-weight:800;">+ TAMBAH KAMAR</button>
+        <button onclick="addRoom()" style="background:none; border:1px dashed var(--gold); color:var(--gold); padding:12px; border-radius:12px; width:100%; font-size:11px; font-weight:800;">+ TAMBAH UNIT KAMAR</button>
+    </div>
+
+    <div id="screen-terms" class="screen">
+        <h3 style="color:var(--gold); font-size:11px; margin: 20px 0 10px 0;">SYARAT & KETENTUAN (PDF)</h3>
+        <div class="glass-card">
+            <label>Include (Fasilitas)</label>
+            <textarea id="in_text" style="height:120px; font-size:11px;" oninput="saveTerms()"></textarea>
+            <label style="margin-top:10px">S&K Pelunasan</label>
+            <textarea id="snk_text" style="height:120px; font-size:11px;" oninput="saveTerms()"></textarea>
+        </div>
     </div>
 
     <div class="bottom-nav">
         <div class="nav-item active" id="nav-f" onclick="setTab('finance')">PRICING</div>
-        <div class="nav-item" id="nav-t" onclick="setTab('terms')">TERMS</div>
         <div class="nav-item" id="nav-i" onclick="setTab('inventory')">MANIFEST</div>
+        <div class="nav-item" id="nav-t" onclick="setTab('terms')">TERMS</div>
     </div>
 </div>
 
 <script>
-    const COMPANY = {
-        name: "FIRDAUS WISATA INSANI",
-        ppiu: "PPIU: 15062200668850002",
-        address: "Jl. Perkantoran Yos Sudarso Megah Blok B No. 26, Tanjung Priok, Jakarta Utara",
-        web: "www.firdauswisatainsani.com"
+    const COMPANY = { 
+        name: "FIRDAUS WISATA INSANI", 
+        ppiu: "PPIU: 15062200668850002", 
+        address: "Jl. Perkantoran Yos Sudarso Megah Blok B No. 26, Tanjung Priok, Jakarta Utara", 
+        web: "www.firdauswisatainsani.com" 
     };
 
-    let packages = JSON.parse(localStorage.getItem('fwi_v16_pkg')) || [
-        { name: "BRONZE", air: "Lion Air", hMek: "Azka Al Safa", hMad: "Diyar Madinah", nMek: 4, nMad: 3, smekQ:1600, smekT:1800, smekD:2000, smadQ:1200, smadT:1500, smadD:1800, jualQ:28500000, jualT:29500000, jualD:31000000 }
-    ];
-    let rooms = JSON.parse(localStorage.getItem('fwi_v16_rms')) || [{ type: 'Q', pax: 4 }];
-    let activeIdx = 0;
+    let p = JSON.parse(localStorage.getItem('fwi_v16_final_p')) || {
+        name: "GOLD", air: "Saudi Airlines", hMek: "Pullman Zamzam", hMad: "Frontel Al Harithia", nMek: 5, nMad: 4,
+        smekQ: 2200, smekT: 2500, smekD: 3000, smadQ: 1600, smadT: 1900, smadD: 2300,
+        profQ: 3500000, profT: 4000000, profD: 5000000, jualQ: 0, jualT: 0, jualD: 0
+    };
+    let rooms = JSON.parse(localStorage.getItem('fwi_v16_final_r')) || [{ type: 'Q', pax: 4 }];
 
     function setTab(t) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -111,142 +124,138 @@
         document.getElementById('nav-'+t.charAt(0)).classList.add('active');
     }
 
-    function changePkg(dir) { activeIdx = (activeIdx + dir + packages.length) % packages.length; saveAndCalc(); }
+    function updatePkgDetail(f, v) { p[f] = (f.includes('nM')) ? parseInt(v) : v; saveAndCalc(); }
+    function updatePkgVal(f, v) { p[f] = parseFloat(v) || 0; saveAndCalc(); }
     function addRoom() { rooms.push({ type:'Q', pax:4 }); saveAndCalc(); }
     function updateRoom(i, f, v) { rooms[i][f] = (f === 'pax') ? parseInt(v) : v; saveAndCalc(); }
-    function updatePkg(f, v) { packages[activeIdx][f] = (f.includes('jual') || f.includes('sm') || f.includes('nM')) ? parseFloat(v) || 0 : v; saveAndCalc(); }
-    function saveTerms() {
-        localStorage.setItem('fwi_v16_trm', JSON.stringify({inc: document.getElementById('in_text').value, snk: document.getElementById('snk_text').value}));
+    function saveTerms() { 
+        localStorage.setItem('fwi_v16_final_t', JSON.stringify({inc: document.getElementById('in_text').value, snk: document.getElementById('snk_text').value})); 
     }
 
     function saveAndCalc() {
         const kS = parseFloat(document.getElementById('ks').value) || 0;
+        const kU = parseFloat(document.getElementById('ku').value) || 0;
         const tkt = parseFloat(document.getElementById('tk').value) || 0;
-        const vsa = 185 * 15900; 
-        const p = packages[activeIdx];
-        document.getElementById('pkgNameDisplay').innerText = `PAKET ${p.name}`;
+        const visa = (parseFloat(document.getElementById('vs').value) || 0) * kU;
+        const hand = parseFloat(document.getElementById('hp').value) || 0;
+        const la = parseFloat(document.getElementById('la').value) || 0;
+        const fixHpp = tkt + visa + hand + la;
 
-        // HPP CALCULATIONS
-        const hQ = tkt + vsa + 3000000 + ( ((p.smekQ/4)*p.nMek) + ((p.smadQ/4)*p.nMad) ) * kS;
-        const hT = tkt + vsa + 3000000 + ( ((p.smekT/3)*p.nMek) + ((p.smadT/3)*p.nMad) ) * kS;
-        const hD = tkt + vsa + 3000000 + ( ((p.smekD/2)*p.nMek) + ((p.smadD/2)*p.nMad) ) * kS;
+        document.getElementById('pName').value = p.name;
+        document.getElementById('pAir').value = p.air;
+        document.getElementById('pMekN').value = p.nMek;
+        document.getElementById('pHMek').value = p.hMek;
+        document.getElementById('pHMad').value = p.hMad;
 
-        // Pricing Editor
+        // Modal (HPP) per Tipe
+        const hQ = fixHpp + ( ((p.smekQ/4)*p.nMek) + ((p.smadQ/4)*p.nMad) ) * kS;
+        const hT = fixHpp + ( ((p.smekT/3)*p.nMek) + ((p.smadT/3)*p.nMad) ) * kS;
+        const hD = fixHpp + ( ((p.smekD/2)*p.nMek) + ((p.smadD/2)*p.nMad) ) * kS;
+
+        // Rekomendasi Jual
+        p.jualQ = hQ + p.profQ; p.jualT = hT + p.profT; p.jualD = hD + p.profD;
+
         document.getElementById('activePackageEditor').innerHTML = `
             <div class="glass-card">
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px">
-                    <div class="input-group"><label>Mekkah (Malam)</label><input type="number" value="${p.nMek}" oninput="updatePkg('nMek',this.value)"></div>
-                    <div class="input-group"><label>Madinah (Malam)</label><input type="number" value="${p.nMad}" oninput="updatePkg('nMad',this.value)"></div>
+                <label>3. REGIMEN JUAL & TARGET PROFIT</label>
+                <div class="room-section">
+                    <div class="room-title">QUAD (BER-4) <span style="color:#888">Modal: ${fmt(hQ)}</span></div>
+                    <div class="row-grid">
+                        <input type="number" value="${p.smekQ}" oninput="updatePkgVal('smekQ',this.value)" placeholder="Rate SAR">
+                        <input type="number" style="color:var(--success)" value="${p.profQ}" oninput="updatePkgVal('profQ',this.value)">
+                    </div>
+                    <div style="font-size:11px; font-weight:800; color:var(--gold); margin-top:5px">REKOMENDASI JUAL: ${fmt(p.jualQ)}</div>
                 </div>
                 <div class="room-section">
-                    <div class="room-title">QUAD ROOM <span>SAR: ${p.smekQ}/${p.smadQ}</span></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
-                        <input type="number" value="${p.smekQ}" oninput="updatePkg('smekQ',this.value)" placeholder="SAR">
-                        <input type="number" value="${p.jualQ}" oninput="updatePkg('jualQ',this.value)" placeholder="Jual IDR">
+                    <div class="room-title">TRIPLE (BER-3) <span style="color:#888">Modal: ${fmt(hT)}</span></div>
+                    <div class="row-grid">
+                        <input type="number" value="${p.smekT}" oninput="updatePkgVal('smekT',this.value)" placeholder="Rate SAR">
+                        <input type="number" style="color:var(--success)" value="${p.profT}" oninput="updatePkgVal('profT',this.value)">
                     </div>
-                    <div class="profit-tag">PROFIT: ${fmt(p.jualQ - hQ)}</div>
+                    <div style="font-size:11px; font-weight:800; color:var(--gold); margin-top:5px">REKOMENDASI JUAL: ${fmt(p.jualT)}</div>
                 </div>
                 <div class="room-section">
-                    <div class="room-title">TRIPLE ROOM <span>SAR: ${p.smekT}/${p.smadT}</span></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
-                        <input type="number" value="${p.smekT}" oninput="updatePkg('smekT',this.value)" placeholder="SAR">
-                        <input type="number" value="${p.jualT}" oninput="updatePkg('jualT',this.value)" placeholder="Jual IDR">
+                    <div class="room-title">DOUBLE (BER-2) <span style="color:#888">Modal: ${fmt(hD)}</span></div>
+                    <div class="row-grid">
+                        <input type="number" value="${p.smekD}" oninput="updatePkgVal('smekD',this.value)" placeholder="Rate SAR">
+                        <input type="number" style="color:var(--success)" value="${p.profD}" oninput="updatePkgVal('profD',this.value)">
                     </div>
-                    <div class="profit-tag">PROFIT: ${fmt(p.jualT - hT)}</div>
-                </div>
-                <div class="room-section">
-                    <div class="room-title">DOUBLE ROOM <span>SAR: ${p.smekD}/${p.smadD}</span></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
-                        <input type="number" value="${p.smekD}" oninput="updatePkg('smekD',this.value)" placeholder="SAR">
-                        <input type="number" value="${p.jualD}" oninput="updatePkg('jualD',this.value)" placeholder="Jual IDR">
-                    </div>
-                    <div class="profit-tag">PROFIT: ${fmt(p.jualD - hD)}</div>
+                    <div style="font-size:11px; font-weight:800; color:var(--gold); margin-top:5px">REKOMENDASI JUAL: ${fmt(p.jualD)}</div>
                 </div>
             </div>`;
 
         let tRev = 0, tHpp = 0, tLeak = 0;
         const rDiv = document.getElementById('roomList'); rDiv.innerHTML = "";
-        
         rooms.forEach((r, i) => {
-            const h = r.type==='Q'?hQ : (r.type==='T'?hT:hD);
-            const j = r.type==='Q'?p.jualQ : (r.type==='T'?p.jualT:p.jualD);
+            const h = r.type==='Q'?hQ:(r.type==='T'?hT:hD);
+            const j = r.type==='Q'?p.jualQ:(r.type==='T'?p.jualT:p.jualD);
             tRev += (j * r.pax); tHpp += (h * r.pax);
-            
-            let cap = r.type==='Q'?4 : (r.type==='T'?3:2);
+            let cap = r.type==='Q'?4:(r.type==='T'?3:2);
             let loss = 0;
             if(r.pax < cap) {
-                let dailySAR = r.type==='Q' ? (p.smekQ/4*p.nMek + p.smadQ/4*p.nMad) : (r.type==='T' ? p.smekT/3*p.nMek + p.smadT/3*p.nMad : p.smekD/2*p.nMek + p.smadD/2*p.nMad);
-                loss = (cap - r.pax) * dailySAR * kS;
+                let dSAR = r.type==='Q' ? (p.smekQ/4*p.nMek + p.smadQ/4*p.nMad) : (r.type==='T' ? (p.smekT/3*p.nMek + p.smadT/3*p.nMad) : (p.smekD/2*p.nMek + p.smadD/2*p.nMad));
+                loss = (cap - r.pax) * dSAR * kS;
                 tLeak += loss;
             }
-
-            // FIXED DROPDOWN HTML
-            let paxOptions = "";
-            for(let v=1; v<=4; v++) {
-                paxOptions += `<option value="${v}" ${r.pax == v ? 'selected' : ''}>${v} Pax</option>`;
-            }
-
-            rDiv.innerHTML += `<div class="glass-card" style="margin-bottom:10px; padding:12px; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:11px; font-weight:800">UNIT #${i+1}</span>
+            rDiv.innerHTML += `<div class="glass-card" style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; padding:12px;">
+                <span style="font-size:10px; font-weight:800">U-${i+1}</span>
                 <select style="width:70px; padding:5px" onchange="updateRoom(${i},'type',this.value)">
                     <option value="Q" ${r.type=='Q'?'selected':''}>QUAD</option>
                     <option value="T" ${r.type=='T'?'selected':''}>TRIP</option>
                     <option value="D" ${r.type=='D'?'selected':''}>DBL</option>
                 </select>
-                <select style="width:75px; padding:5px" onchange="updateRoom(${i},'pax',this.value)">
-                    ${paxOptions}
+                <select style="width:85px; padding:5px" onchange="updateRoom(${i},'pax',this.value)">
+                    ${[1,2,3,4].map(v=>`<option value="${v}" ${r.pax==v?'selected':''}>${v} Pax</option>`).join('')}
                 </select>
-                <span style="color:var(--danger); font-size:9px; font-weight:700;">${loss > 0 ? '-' + Math.round(loss/1000) + 'k' : 'AMAN'}</span>
+                <span style="color:var(--danger); font-size:9px; font-weight:700">${loss>0?'-'+Math.round(loss/1000)+'k':''}</span>
             </div>`;
         });
 
         document.getElementById('topProfit').innerText = fmt(tRev - (tHpp + tLeak));
         document.getElementById('topRev').innerText = fmt(tRev);
         document.getElementById('topHpp').innerText = fmt(tHpp + tLeak);
-        document.getElementById('topLeak').innerText = tLeak > 0 ? `LOSS BED: -${fmt(tLeak)}` : "TIDAK ADA KEBOCORAN";
-        
-        localStorage.setItem('fwi_v16_pkg', JSON.stringify(packages));
-        localStorage.setItem('fwi_v16_rms', JSON.stringify(rooms));
+        document.getElementById('topLeak').innerText = tLeak > 0 ? `BOCOR BED: -${fmt(tLeak)}` : "AMAN (NO LOSS BED)";
+        localStorage.setItem('fwi_v16_final_p', JSON.stringify(p));
+        localStorage.setItem('fwi_v16_final_r', JSON.stringify(rooms));
     }
 
     function fmt(v) { return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v); }
 
     function generatePDF() {
-        const { jsPDF } = window.jspdf; const doc = new jsPDF(); const p = packages[activeIdx];
-        const t = JSON.parse(localStorage.getItem('fwi_v16_trm')) || {inc:'Tiket PP, Visa, Hotel, Makan, Bus.', snk:'DP 10jt, Pelunasan H-45.'};
+        const { jsPDF } = window.jspdf; const doc = new jsPDF();
+        const t = JSON.parse(localStorage.getItem('fwi_v16_final_t')) || {inc:'Tiket PP, Visa, Hotel, Makan, Bus.', snk:'DP 10jt, Pelunasan H-45.'};
         
         doc.setFillColor(197, 160, 89); doc.rect(0, 0, 210, 40, 'F');
         doc.setTextColor(255,255,255); doc.setFontSize(18); doc.text(COMPANY.name, 20, 15);
         doc.setFontSize(8); doc.text(`${COMPANY.ppiu} | ${COMPANY.web}`, 20, 22);
         doc.text(COMPANY.address, 20, 28, {maxWidth: 170});
 
-        doc.setTextColor(0,0,0); doc.setFontSize(14); doc.text(`PENAWARAN UMRAH: ${p.name}`, 20, 50);
-        doc.setFontSize(10); doc.text(`Pesawat: ${p.air} | Durasi: ${p.nMek+p.nMad} Hari`, 20, 58);
-        
-        doc.setFillColor(245,245,245); doc.rect(20, 65, 170, 35, 'F');
-        doc.text("TIPE KAMAR", 25, 73); doc.text("HARGA JUAL", 140, 73);
-        doc.line(20, 75, 190, 75);
-        doc.text("QUAD ROOM (Ber-4)", 25, 81); doc.text(fmt(p.jualQ), 140, 81);
-        doc.text("TRIPLE ROOM (Ber-3)", 25, 87); doc.text(fmt(p.jualT), 140, 87);
-        doc.text("DOUBLE ROOM (Ber-2)", 25, 93); doc.text(fmt(p.jualD), 140, 93);
+        doc.setTextColor(0,0,0); doc.setFontSize(14); doc.text(`SURAT PENAWARAN: PAKET ${p.name}`, 20, 50);
+        doc.setFontSize(10); doc.text(`Maskapai: ${p.air} | Durasi: ${p.nMek+p.nMad} Hari`, 20, 58);
+        doc.text(`Hotel: ${p.hMek} (Mek) & ${p.hMad} (Mad)`, 20, 64);
 
-        doc.setFontSize(11); doc.setTextColor(197,160,89); doc.text("HARGA TERMASUK:", 20, 115);
-        doc.setTextColor(80); doc.setFontSize(9); doc.text(t.inc, 20, 121, {maxWidth: 170});
+        doc.setFillColor(245,245,245); doc.rect(20, 72, 170, 36, 'F');
+        doc.text("TIPE KAMAR", 25, 80); doc.text("HARGA PER PAX", 140, 80);
+        doc.line(20, 82, 190, 82);
+        doc.text("QUAD ROOM (Ber-4)", 25, 88); doc.text(fmt(p.jualQ), 140, 88);
+        doc.text("TRIPLE ROOM (Ber-3)", 25, 94); doc.text(fmt(p.jualT), 140, 94);
+        doc.text("DOUBLE ROOM (Ber-2)", 25, 100); doc.text(fmt(p.jualD), 140, 100);
 
-        doc.setTextColor(197,160,89); doc.setFontSize(11); doc.text("SYARAT & KETENTUAN:", 20, 160);
-        doc.setTextColor(80); doc.setFontSize(9); doc.text(t.snk, 20, 166, {maxWidth: 170});
+        doc.setTextColor(197,160,89); doc.setFontSize(11); doc.text("FASILITAS TERMASUK:", 20, 120);
+        doc.setTextColor(80); doc.setFontSize(9); doc.text(t.inc, 20, 126, {maxWidth: 170});
 
-        doc.save(`Firdaus_Penawaran_${p.name}.pdf`);
+        doc.setTextColor(197,160,89); doc.setFontSize(11); doc.text("SYARAT & KETENTUAN:", 20, 165);
+        doc.setTextColor(80); doc.setFontSize(9); doc.text(t.snk, 20, 171, {maxWidth: 170});
+
+        doc.save(`Penawaran_Firdaus_${p.name}.pdf`);
     }
 
     window.onload = () => {
-        const t = JSON.parse(localStorage.getItem('fwi_v16_trm'));
-        if(t) { 
-            document.getElementById('in_text').value = t.inc; 
-            document.getElementById('snk_text').value = t.snk; 
-        } else {
-            document.getElementById('in_text').value = "Tiket Pesawat PP, Visa Umrah, Hotel Makkah & Madinah, Makan 3x, Bus AC, Muthowif Profesional, Perlengkapan Umrah.";
-            document.getElementById('snk_text').value = "1. Pendaftaran dengan DP Rp 10.000.000\n2. Pelunasan paling lambat 45 hari sebelum jadwal.\n3. Harga mengikuti kurs saat transaksi.";
+        const t = JSON.parse(localStorage.getItem('fwi_v16_final_t'));
+        if(t) { document.getElementById('in_text').value=t.inc; document.getElementById('snk_text').value=t.snk; }
+        else { 
+            document.getElementById('in_text').value="1. Tiket Pesawat PP\n2. Visa Umrah & Asuransi\n3. Hotel Makkah & Madinah\n4. Makan 3x Sehari\n5. Transportasi Bus AC Lokal\n6. Muthowif & Perlengkapan Umrah"; 
+            document.getElementById('snk_text').value="1. DP Pendaftaran Rp 10.000.000\n2. Pelunasan H-45 sebelum keberangkatan\n3. Harga sewaktu-waktu dapat berubah mengikuti kebijakan kurs dan regulasi Saudi.";
         }
         saveAndCalc();
     };
