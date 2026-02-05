@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FIRDAUS WISATA INSANI - ULTIMATE v13.3</title>
+    <title>FIRDAUS WISATA INSANI - ULTIMATE v13.4</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -41,7 +41,7 @@
 <div id="loginScreen" style="position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:10000;">
     <div style="text-align: center; width: 85%; max-width: 350px;">
         <h2 style="color:#fff; font-weight:800;">FIRDAUS WISATA INSANI</h2>
-        <p style="font-size:10px; color:var(--gold); margin-bottom:40px; letter-spacing:2px;">ULTIMATE v13.3</p>
+        <p style="font-size:10px; color:var(--gold); margin-bottom:40px; letter-spacing:2px;">ULTIMATE v13.4</p>
         <input type="password" id="passInput" placeholder="PIN AKSES" style="text-align:center; letter-spacing:5px;">
         <button onclick="doLogin()" class="btn btn-gold">MASUK</button>
     </div>
@@ -80,7 +80,7 @@
 
         <h3 style="margin-bottom:15px; font-size:12px; color:var(--gold); font-weight:800;">III. KETERANGAN PDF</h3>
         <div class="glass-card">
-            <div class="input-group"><label>Include</label><textarea id="inc" oninput="saveAndCalc()">Tiket PP, Visa, Hotel, Kereta Cepat HHR, Makan 3x, Zamzam.</textarea></div>
+            <div class="input-group"><label>Include</label><textarea id="inc" oninput="saveAndCalc()">Tiket PP, Visa, Hotel Mekkah & Madinah, Kereta Cepat HHR, Makan 3x, Zamzam.</textarea></div>
             <div class="input-group"><label>S & K</label><textarea id="snk" oninput="saveAndCalc()">Harga mengikat setelah DP. Pelunasan H-30.</textarea></div>
         </div>
 
@@ -108,9 +108,9 @@
 <script>
     const PASS = "firdaus2024";
     let packages = [
-        { name: "BRONZE", smak: 450, smad: 350, pf: 2000000, hotel: "Azka Al Safa / Diyar Madinah" },
-        { name: "SILVER", smak: 700, smad: 500, pf: 3000000, hotel: "Anjum / Grand Plaza" },
-        { name: "PLATINUM", smak: 1250, smad: 850, pf: 5000000, hotel: "Pullman / Movenpick" }
+        { name: "BRONZE", smak: 450, smad: 350, pf: 2000000, hMek: "Azka Al Safa", hMad: "Diyar Madinah" },
+        { name: "SILVER", smak: 700, smad: 500, pf: 3000000, hMek: "Anjum", hMad: "Grand Plaza" },
+        { name: "PLATINUM", smak: 1250, smad: 850, pf: 5000000, hMek: "Pullman", hMad: "Movenpick" }
     ];
     let rooms = [{ type: 'Q', pax: 4 }];
     let activeIdx = 0;
@@ -183,12 +183,16 @@
         packages.forEach((p, idx) => {
             pkgCont.innerHTML += `
                 <div class="glass-card pkg-card ${activeIdx==idx?'active':''}" onclick="activeIdx=${idx};saveAndCalc();">
-                    <div class="input-group"><label>NAMA HOTEL (${p.name})</label>
-                    <input type="text" value="${p.hotel}" oninput="updatePkg(${idx},'hotel',this.value)" onclick="event.stopPropagation()"></div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
+                        <div class="input-group"><label>Hotel Mekkah</label>
+                        <input type="text" value="${p.hMek}" oninput="updatePkg(${idx},'hMek',this.value)" onclick="event.stopPropagation()"></div>
+                        <div class="input-group"><label>Hotel Madinah</label>
+                        <input type="text" value="${p.hMad}" oninput="updatePkg(${idx},'hMad',this.value)" onclick="event.stopPropagation()"></div>
+                    </div>
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                         <div class="input-group"><label>SAR Makkah</label><input type="number" value="${p.smak}" oninput="updatePkg(${idx},'smak',this.value)" onclick="event.stopPropagation()"></div>
                         <div class="input-group"><label>SAR Madinah</label><input type="number" value="${p.smad}" oninput="updatePkg(${idx},'smad',this.value)" onclick="event.stopPropagation()"></div>
-                        <div class="input-group" style="grid-column: span 2;"><label>Profit Bersih (IDR)</label><input type="number" value="${p.pf}" oninput="updatePkg(${idx},'pf',this.value)" onclick="event.stopPropagation()"></div>
+                        <div class="input-group" style="grid-column: span 2;"><label>Profit Kantor (IDR)</label><input type="number" value="${p.pf}" oninput="updatePkg(${idx},'pf',this.value)" onclick="event.stopPropagation()" style="border-color:var(--gold);"></div>
                     </div>
                 </div>`;
         });
@@ -206,11 +210,11 @@
             inc:document.getElementById('inc').value, snk:document.getElementById('snk').value,
             packages, rooms, activeIdx 
         };
-        localStorage.setItem('firdaus_v13_3', JSON.stringify(d));
+        localStorage.setItem('firdaus_v13_4', JSON.stringify(d));
     }
 
     function loadData() {
-        const raw = localStorage.getItem('firdaus_v13_3');
+        const raw = localStorage.getItem('firdaus_v13_4');
         if(raw) {
             const d = JSON.parse(raw);
             document.getElementById('kursSar').value = d.ks; document.getElementById('kursUsd').value = d.ku;
@@ -224,7 +228,7 @@
     }
 
     function resetSystem() {
-        if(confirm("Hapus memori FIRDAUS WISATA INSANI?")) { localStorage.removeItem('firdaus_v13_3'); location.reload(); }
+        if(confirm("Hapus memori FIRDAUS WISATA INSANI?")) { localStorage.removeItem('firdaus_v13_4'); location.reload(); }
     }
 
     function generatePDF() {
@@ -232,12 +236,15 @@
         doc.setFontSize(22); doc.setTextColor(197, 160, 89);
         doc.text("FIRDAUS WISATA INSANI", 20, 25);
         doc.setFontSize(14); doc.setTextColor(0,0,0);
-        doc.text(`Paket: ${p.name}`, 20, 40);
-        doc.text(`Hotel: ${p.hotel}`, 20, 50);
-        doc.text(`Harga Jual: ${document.getElementById('topRevenue').innerText}`, 20, 60);
-        doc.text("Include:", 20, 75); doc.setFontSize(10);
-        doc.text(doc.splitTextToSize(document.getElementById('inc').value, 160), 20, 82);
-        doc.save(`Penawaran_${p.name}.pdf`);
+        doc.text(`Paket Penawaran: ${p.name}`, 20, 40);
+        doc.setFontSize(11);
+        doc.text(`Hotel Mekkah: ${p.hMek}`, 20, 50);
+        doc.text(`Hotel Madinah: ${p.hMad}`, 20, 57);
+        doc.setFontSize(14);
+        doc.text(`Harga Jual: ${document.getElementById('topRevenue').innerText}`, 20, 70);
+        doc.setFontSize(12); doc.text("Include:", 20, 85);
+        doc.setFontSize(10); doc.text(doc.splitTextToSize(document.getElementById('inc').value, 160), 20, 92);
+        doc.save(`Penawaran_Firdaus_${p.name}.pdf`);
     }
 </script>
 </body>
