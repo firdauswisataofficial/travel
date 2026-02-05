@@ -3,37 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FIRDAUS WISATA INSANI - INTELLIGENT v13.8</title>
+    <title>FIRDAUS WISATA - PRESTIGE v14.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { --gold: #C5A059; --bg: #050505; --card: #111111; --input: #1A1A1A; --text: #FFFFFF; --text-dim: #888888; --danger: #FF4D4D; --success: #00FF94; }
+        :root { --gold: #C5A059; --bg: #050505; --card: #111111; --input: #1A1A1A; --text: #FFFFFF; --text-dim: #888888; --danger: #FF4D4D; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg); color: var(--text); padding-bottom: 120px; }
+        
+        /* Header Statis */
         .finance-header { background: linear-gradient(180deg, #1A1A1A 0%, #050505 100%); padding: 25px 20px; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; }
-        .main-balance { text-align: center; }
-        .main-balance h1 { font-size: 32px; font-weight: 800; color: var(--gold); letter-spacing: -1px; }
+        .main-balance h1 { font-size: 28px; font-weight: 800; color: var(--gold); text-align: center; }
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .stat-box { background: var(--card); padding: 12px; border-radius: 14px; border: 1px solid #222; }
         .stat-box p { font-size: 8px; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
-        .stat-box h2 { font-size: 14px; color: #fff; margin-top: 4px; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); display: flex; border-top: 1px solid #222; z-index: 1000; padding: 15px 0; }
-        .nav-item { flex: 1; text-align: center; color: var(--text-dim); font-size: 10px; font-weight: 700; cursor: pointer; }
-        .nav-item.active { color: var(--gold); }
+        
+        /* Slide Navigation */
+        .pkg-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .pkg-nav button { background: var(--gold); border: none; padding: 8px 15px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+        .pkg-title { font-size: 18px; font-weight: 800; color: var(--gold); }
+
         .screen { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
         .screen.active { display: block; }
         .glass-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 18px; margin-bottom: 20px; }
+        
         .input-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
-        label { font-size: 8px; color: var(--gold); font-weight: 800; text-transform: uppercase; }
-        .hpp-tag { font-size: 9px; color: var(--text-dim); font-weight: 600; margin-top: 2px; }
-        input { background: var(--input); border: 1px solid #333; padding: 12px; border-radius: 10px; color: white; outline: none; font-size: 13px; width: 100%; }
-        .pkg-card { border: 2px solid #222; cursor: pointer; position: relative; }
-        .pkg-card.active { border-color: var(--gold); background: #1a1510; }
-        .btn { width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; border: none; cursor: pointer; font-size: 12px; text-transform: uppercase; }
-        .btn-gold { background: var(--gold); color: #000; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { font-size: 9px; color: var(--text-dim); text-align: left; padding-bottom: 10px; }
-        td { padding: 8px 0; border-top: 1px solid #222; font-size: 13px; }
+        label { font-size: 7px; color: var(--gold); font-weight: 800; text-transform: uppercase; }
+        input { background: var(--input); border: 1px solid #333; padding: 10px; border-radius: 8px; color: white; outline: none; font-size: 12px; width: 100%; }
+        .hpp-tag { font-size: 9px; color: #00FF94; font-weight: 700; margin-top: 3px; }
+
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); display: flex; border-top: 1px solid #222; z-index: 1000; padding: 15px 0; }
+        .nav-item { flex: 1; text-align: center; color: var(--text-dim); font-size: 10px; font-weight: 700; cursor: pointer; }
+        .nav-item.active { color: var(--gold); }
+
+        .btn-print { width: 100%; padding: 18px; border-radius: 16px; background: var(--gold); color: #000; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -42,73 +45,81 @@
 <div id="mainApp">
     <div class="finance-header">
         <div class="main-balance">
-            <p style="font-size:9px; color:var(--text-dim); letter-spacing:2px;">PROFIT BERSIH (TOTAL)</p>
+            <p style="font-size:9px; color:var(--text-dim); text-align:center; letter-spacing:2px;">TOTAL NET PROFIT</p>
             <h1 id="topProfit">Rp 0</h1>
-            <div id="topLeak" style="color:var(--danger); font-size:10px; font-weight:800; margin-top:5px;"></div>
+            <p id="topLeak" style="color:var(--danger); font-size:9px; text-align:center; font-weight:800; margin-top:5px;"></p>
         </div>
         <div class="stat-grid">
-            <div class="stat-box"><p>Total Omzet</p><h2 id="topRev">Rp 0</h2></div>
-            <div class="stat-box"><p>Total HPP (Real)</p><h2 id="topHpp">Rp 0</h2></div>
+            <div class="stat-box"><p>Omzet</p><h2 id="topRev" style="font-size:13px;">0</h2></div>
+            <div class="stat-box"><p>HPP + Loss</p><h2 id="topHpp" style="font-size:13px;">0</h2></div>
         </div>
     </div>
 
     <div id="screen-finance" class="screen active">
-        <h3 style="margin-bottom:15px; font-size:11px; color:var(--gold);">DASAR PERHITUNGAN</h3>
         <div class="glass-card">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div class="input-group"><label>Kurs SAR</label><input type="number" id="ks" value="4350" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Kurs USD</label><input type="number" id="ku" value="15900" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Tiket PP</label><input type="number" id="tk" value="14500000" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Visa ($)</label><input type="number" id="vs" value="185" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>HHR/Kereta</label><input type="number" id="hh" value="850000" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Handling</label><input type="number" id="hd" value="1500000" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Malam Mek</label><input type="number" id="nM" value="4" oninput="saveAndCalc()"></div>
-                <div class="input-group"><label>Malam Mad</label><input type="number" id="nD" value="3" oninput="saveAndCalc()"></div>
+            <label>VARIABEL UMUM</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top:10px;">
+                <div class="input-group"><label>SAR</label><input type="number" id="ks" value="4350" oninput="saveAndCalc()"></div>
+                <div class="input-group"><label>USD</label><input type="number" id="ku" value="15900" oninput="saveAndCalc()"></div>
+                <div class="input-group"><label>Visa$</label><input type="number" id="vs" value="185" oninput="saveAndCalc()"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="input-group"><label>Tiket IDR</label><input type="number" id="tk" value="14500000" oninput="saveAndCalc()"></div>
+                <div class="input-group"><label>HHR/Hand</label><input type="number" id="hh" value="2350000" oninput="saveAndCalc()"></div>
             </div>
         </div>
 
-        <h3 style="margin-bottom:15px; font-size:11px; color:var(--gold);">PILIH & EDIT PAKET</h3>
-        <div id="packageList"></div>
-        <button class="btn btn-gold" onclick="generatePDF()">CETAK PENAWARAN</button>
+        <div class="pkg-nav">
+            <button onclick="changePkg(-1)">PREV</button>
+            <div class="pkg-title" id="pkgNameDisplay">PAKET BRONZE</div>
+            <button onclick="changePkg(1)">NEXT</button>
+        </div>
+
+        <div id="activePackageEditor"></div>
+        <button class="btn-print" onclick="generatePDF()">CETAK PENAWARAN MEWAH</button>
     </div>
 
     <div id="screen-inventory" class="screen">
-        <h3 style="margin-bottom:15px; font-size:11px; color:var(--gold);">MANIFEST KAMAR & LOSS PROFIT</h3>
+        <h3 style="color:var(--gold); font-size:11px; margin-bottom:10px;">MANIFEST JAMAAH</h3>
         <div class="glass-card">
-            <table>
-                <thead><tr><th>UNIT</th><th>TIPE</th><th>PAX</th><th>LOSS BED</th></tr></thead>
+            <table style="width:100%; color:white; font-size:12px; text-align:left;">
+                <thead><tr style="color:var(--text-dim); font-size:9px;"><th>KAMAR</th><th>TIPE</th><th>PAX</th><th>LOSS</th></tr></thead>
                 <tbody id="roomTbody"></tbody>
             </table>
-            <button class="btn btn-gold" style="background:transparent; border:1px solid var(--gold); color:var(--gold); margin-top:15px;" onclick="addRoom()">+ TAMBAH UNIT</button>
+            <button onclick="addRoom()" style="background:none; border:1px solid var(--gold); color:var(--gold); padding:10px; border-radius:8px; margin-top:15px; width:100%; font-weight:800;">+ TAMBAH UNIT</button>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active" id="nav-finance" onclick="setTab('finance')">PRICING</div>
-        <div class="nav-item" id="nav-inventory" onclick="setTab('inventory')">MANIFEST</div>
+        <div class="nav-item active" id="nav-f" onclick="setTab('finance')">PRICING</div>
+        <div class="nav-item" id="nav-i" onclick="setTab('inventory')">MANIFEST</div>
     </div>
 </div>
 
 <script>
     let packages = [
-        { name: "BRONZE", smak: 450, smad: 350, hMek: "Azka Al Safa", hMad: "Diyar Madinah", jualQ: 28500000, jualT: 29500000, jualD: 31000000 },
-        { name: "SILVER", smak: 700, smad: 500, hMek: "Anjum", hMad: "Grand Plaza", jualQ: 32500000, jualT: 34000000, jualD: 36000000 },
-        { name: "PLATINUM", smak: 1200, smad: 800, hMek: "Pullman", hMad: "Movenpick", jualQ: 42500000, jualT: 45000000, jualD: 48000000 }
+        { name: "BRONZE", air: "Lion Air", hMek: "Azka Al Safa", hMad: "Diyar Madinah", smekQ:450, smekT:550, smekD:700, smadQ:350, smadT:450, smadD:600, jualQ:28500000, jualT:29500000, jualD:31000000 },
+        { name: "SILVER", air: "Oman Air", hMek: "Anjum", hMad: "Grand Plaza", smekQ:700, smekT:850, smekD:1000, smadQ:500, smadT:650, smadD:800, jualQ:32500000, jualT:34000000, jualD:36000000 },
+        { name: "GOLD", air: "Saudi Airlines", hMek: "Pullman", hMad: "Movenpick", smekQ:1200, smekT:1500, smekD:1800, smadQ:800, smadT:1000, smadD:1300, jualQ:42000000, jualT:44500000, jualD:48000000 }
     ];
     let rooms = [{ type: 'Q', pax: 4 }];
     let activeIdx = 0;
 
+    function changePkg(dir) {
+        activeIdx = (activeIdx + dir + packages.length) % packages.length;
+        saveAndCalc();
+    }
+
     function setTab(t) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        document.getElementById('screen-'+t).classList.add('active');
-        document.getElementById('nav-finance').classList.toggle('active', t==='finance');
-        document.getElementById('nav-inventory').classList.toggle('active', t==='inventory');
+        if(t==='finance') { document.getElementById('screen-finance').classList.add('active'); document.getElementById('nav-f').classList.add('active'); }
+        else { document.getElementById('screen-inventory').classList.add('active'); document.getElementById('nav-i').classList.add('active'); }
     }
 
     function addRoom() { rooms.push({ type:'Q', pax:4 }); saveAndCalc(); }
     function updateRoom(i,f,v) { rooms[i][f] = f==='pax'?parseInt(v):v; saveAndCalc(); }
-    function updatePkg(i,f,v) { packages[i][f] = (f.includes('jual')||f.includes('sm'))?parseFloat(v)||0 : v; saveAndCalc(); }
+    function updatePkg(f,v) { packages[activeIdx][f] = (f.includes('jual')||f.includes('sm'))?parseFloat(v)||0 : v; saveAndCalc(); }
 
     function saveAndCalc() {
         const kS = parseFloat(document.getElementById('ks').value)||0;
@@ -116,103 +127,111 @@
         const tkt = parseFloat(document.getElementById('tk').value)||0;
         const vsa = (parseFloat(document.getElementById('vs').value)||0) * kU;
         const hhr = parseFloat(document.getElementById('hh').value)||0;
-        const hnd = parseFloat(document.getElementById('hd').value)||0;
-        const nM = parseFloat(document.getElementById('nM').value)||0;
-        const nD = parseFloat(document.getElementById('nD').value)||0;
+        const p = packages[activeIdx];
+        document.getElementById('pkgNameDisplay').innerText = `PAKET ${p.name}`;
 
-        const pkgCont = document.getElementById('packageList');
-        pkgCont.innerHTML = "";
+        const hppQ = tkt + vsa + hhr + ((((p.smekQ * 4) + (p.smadQ * 3)) / 4) * kS);
+        const hppT = tkt + vsa + hhr + ((((p.smekT * 4) + (p.smadT * 3)) / 3) * kS);
+        const hppD = tkt + vsa + hhr + ((((p.smekD * 4) + (p.smadD * 3)) / 2) * kS);
 
-        // Hitung HPP dan Render Paket
-        packages.forEach((p, idx) => {
-            const hppQ = tkt + vsa + hhr + hnd + ((((p.smak * nM) + (p.smad * nD)) / 4) * kS);
-            const hppT = tkt + vsa + hhr + hnd + ((((p.smak * nM) + (p.smad * nD)) / 3) * kS);
-            const hppD = tkt + vsa + hhr + hnd + ((((p.smak * nM) + (p.smad * nD)) / 2) * kS);
-
-            pkgCont.innerHTML += `
-                <div class="glass-card pkg-card ${activeIdx==idx?'active':''}" onclick="activeIdx=${idx};saveAndCalc();">
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
-                        <div class="input-group"><label>Htl Mekkah</label><input type="text" value="${p.hMek}" oninput="updatePkg(${idx},'hMek',this.value)" onclick="event.stopPropagation()"></div>
-                        <div class="input-group"><label>Htl Madinah</label><input type="text" value="${p.hMad}" oninput="updatePkg(${idx},'hMad',this.value)" onclick="event.stopPropagation()"></div>
-                        <div class="input-group"><label>SAR Mek</label><input type="number" value="${p.smak}" oninput="updatePkg(${idx},'smak',this.value)" onclick="event.stopPropagation()"></div>
-                        <div class="input-group"><label>SAR Mad</label><input type="number" value="${p.smad}" oninput="updatePkg(${idx},'smad',this.value)" onclick="event.stopPropagation()"></div>
+        const editor = document.getElementById('activePackageEditor');
+        editor.innerHTML = `
+            <div class="glass-card">
+                <div class="input-group"><label>Maskapai Pesawat</label><input type="text" value="${p.air}" oninput="updatePkg('air',this.value)"></div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div class="input-group"><label>Hotel Makkah</label><input type="text" value="${p.hMek}" oninput="updatePkg('hMek',this.value)"></div>
+                    <div class="input-group"><label>Hotel Madinah</label><input type="text" value="${p.hMad}" oninput="updatePkg('hMad',this.value)"></div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
+                    <div class="input-group"><label>SAR MEK Q/T/D</label>
+                        <input type="number" value="${p.smekQ}" oninput="updatePkg('smekQ',this.value)" placeholder="Q">
+                        <input type="number" value="${p.smekT}" oninput="updatePkg('smekT',this.value)" placeholder="T">
+                        <input type="number" value="${p.smekD}" oninput="updatePkg('smekD',this.value)" placeholder="D">
                     </div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
-                        <div class="input-group"><label>Jual Quad</label><input type="number" value="${p.jualQ}" oninput="updatePkg(${idx},'jualQ',this.value)" onclick="event.stopPropagation()">
-                        <div class="hpp-tag">HPP: ${Math.round(hppQ/1000)}k</div></div>
-                        <div class="input-group"><label>Jual Triple</label><input type="number" value="${p.jualT}" oninput="updatePkg(${idx},'jualT',this.value)" onclick="event.stopPropagation()">
-                        <div class="hpp-tag">HPP: ${Math.round(hppT/1000)}k</div></div>
-                        <div class="input-group"><label>Jual Double</label><input type="number" value="${p.jualD}" oninput="updatePkg(${idx},'jualD',this.value)" onclick="event.stopPropagation()">
-                        <div class="hpp-tag">HPP: ${Math.round(hppD/1000)}k</div></div>
+                    <div class="input-group"><label>SAR MAD Q/T/D</label>
+                        <input type="number" value="${p.smadQ}" oninput="updatePkg('smadQ',this.value)" placeholder="Q">
+                        <input type="number" value="${p.smadT}" oninput="updatePkg('smadT',this.value)" placeholder="T">
+                        <input type="number" value="${p.smadD}" oninput="updatePkg('smadD',this.value)" placeholder="D">
                     </div>
-                </div>`;
-        });
+                    <div class="input-group"><label>HARGA JUAL</label>
+                        <input type="number" value="${p.jualQ}" oninput="updatePkg('jualQ',this.value)">
+                        <input type="number" value="${p.jualT}" oninput="updatePkg('jualT',this.value)">
+                        <input type="number" value="${p.jualD}" oninput="updatePkg('jualD',this.value)">
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px; text-align:center;">
+                    <div class="hpp-tag">HPP Q:${Math.round(hppQ/1000)}k</div>
+                    <div class="hpp-tag">HPP T:${Math.round(hppT/1000)}k</div>
+                    <div class="hpp-tag">HPP D:${Math.round(hppD/1000)}k</div>
+                </div>
+            </div>`;
 
-        // Hitung Akumulatif Manifest & Loss
-        const cur = packages[activeIdx];
-        let totalRev = 0; let totalHppReal = 0; let totalLeak = 0;
-        const tbody = document.getElementById('roomTbody');
-        tbody.innerHTML = "";
-
+        let totalRev = 0; let totalHpp = 0; let totalLeak = 0;
+        const tbody = document.getElementById('roomTbody'); tbody.innerHTML = "";
         rooms.forEach((r, i) => {
-            const hppBase = (tkt + vsa + hhr + hnd + ((((cur.smak * nM) + (cur.smad * nD)) / (r.type==='Q'?4:(r.type==='T'?3:2))) * kS));
-            const jual_unit = r.type==='Q'? cur.jualQ : (r.type==='T'? cur.jualT : cur.jualD);
-            
-            totalRev += (jual_unit * r.pax);
-            totalHppReal += (hppBase * r.pax);
-            
-            // Hitung LOSS per unit (Bocor Kasur)
+            const hpp_u = r.type==='Q'?hppQ : (r.type==='T'?hppT:hppD);
+            const jual_u = r.type==='Q'?p.jualQ : (r.type==='T'?p.jualT:p.jualD);
+            totalRev += (jual_u * r.pax); totalHpp += (hpp_u * r.pax);
             let limit = r.type==='Q'?4:(r.type==='T'?3:2);
-            let lossUnit = 0;
+            let loss = 0;
             if(r.pax < limit) {
-                // Biaya 1 Kasur Kosong adalah Harga Hotel dibagi kapasitas
-                lossUnit = (limit - r.pax) * ((((cur.smak * nM) + (cur.smad * nD)) / limit) * kS);
-                totalLeak += lossUnit;
+                loss = (limit - r.pax) * ((((r.type==='Q'?p.smekQ:r.type==='T'?p.smekT:p.smekD)*4)+((r.type==='Q'?p.smadQ:r.type==='T'?p.smadT:p.smadD)*3))/limit*kS);
+                totalLeak += loss;
             }
-
-            tbody.innerHTML += `<tr>
-                <td>KAMAR ${i+1}</td>
-                <td><select onchange="updateRoom(${i},'type',this.value)"><option value="Q" ${r.type=='Q'?'selected':''}>QUAD</option><option value="T" ${r.type=='T'?'selected':''}>TRIPLE</option><option value="D" ${r.type=='D'?'selected':''}>DOUBLE</option></select></td>
-                <td><select onchange="updateRoom(${i},'pax',this.value)">${[1,2,3,4].map(n=>`<option value="${n}" ${r.pax==n?'selected':''}>${n}</option>`).join('')}</select></td>
-                <td style="color:var(--danger); font-weight:bold;">${lossUnit > 0 ? '-' + Math.round(lossUnit/1000) + 'k' : 'OK'}</td>
-            </tr>`;
+            tbody.innerHTML += `<tr><td>#${i+1}</td>
+                <td><select onchange="updateRoom(${i},'type',this.value)"><option value="Q" ${r.type=='Q'?'selected':''}>Q</option><option value="T" ${r.type=='T'?'selected':''}>T</option><option value="D" ${r.type=='D'?'selected':''}>D</option></select></td>
+                <td><input type="number" value="${r.pax}" style="width:40px; padding:2px;" oninput="updateRoom(${i},'pax',this.value)"></td>
+                <td style="color:var(--danger)">${loss>0?'-'+Math.round(loss/1000)+'k':'-'}</td></tr>`;
         });
-
-        document.getElementById('topProfit').innerText = fmt(totalRev - (totalHppReal + totalLeak));
+        document.getElementById('topProfit').innerText = fmt(totalRev - (totalHpp + totalLeak));
         document.getElementById('topRev').innerText = fmt(totalRev);
-        document.getElementById('topHpp').innerText = fmt(totalHppReal + totalLeak);
-        document.getElementById('topLeak').innerText = totalLeak > 0 ? `KEBOCORAN KASUR: -${fmt(totalLeak)}` : "MANIFEST AMAN (NO LEAK)";
-        
-        localStorage.setItem('firdaus_v13_8', JSON.stringify({ks:kS, ku:kU, tk:tkt, vs:document.getElementById('vs').value, hh:hhr, hd:hnd, nM:nM, nD:nD, packages, rooms, activeIdx}));
+        document.getElementById('topHpp').innerText = fmt(totalHpp + totalLeak);
+        document.getElementById('topLeak').innerText = totalLeak > 0 ? `LOSS BED: -${fmt(totalLeak)}` : "";
     }
 
     function fmt(v) { return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v); }
 
     function generatePDF() {
         const { jsPDF } = window.jspdf; const doc = new jsPDF(); const p = packages[activeIdx];
-        doc.setFillColor(197, 160, 89); doc.rect(0, 0, 210, 40, 'F');
-        doc.setTextColor(255,255,255); doc.setFontSize(22); doc.text("FIRDAUS WISATA INSANI", 20, 25);
-        doc.setTextColor(0,0,0); doc.setFontSize(14); doc.text(`PENAWARAN RESMI PAKET: ${p.name}`, 20, 55);
-        doc.setFontSize(10); doc.text(`Akomodasi Makkah: ${p.hMek}`, 20, 65); doc.text(`Akomodasi Madinah: ${p.hMad}`, 20, 72);
-        doc.line(20, 80, 190, 80);
-        doc.text("TIPE KAMAR", 25, 95); doc.text("HARGA JUAL PER PAX", 140, 95);
-        doc.text("Quad Room (Ber-4)", 25, 105); doc.text(fmt(p.jualQ), 140, 105);
-        doc.text("Triple Room (Ber-3)", 25, 115); doc.text(fmt(p.jualT), 140, 115);
-        doc.text("Double Room (Ber-2)", 25, 125); doc.text(fmt(p.jualD), 140, 125);
-        doc.setFontSize(8); doc.text("*Harga sudah termasuk perlengkapan, handling, dan asuransi.", 20, 145);
-        doc.save(`Penawaran_${p.name}.pdf`);
+        
+        // Header Mewah (Background Emas)
+        doc.setFillColor(197, 160, 89); doc.rect(0, 0, 210, 45, 'F');
+        doc.setTextColor(255,255,255); doc.setFontSize(24); doc.setFont("helvetica", "bold");
+        doc.text("FIRDAUS WISATA INSANI", 20, 25);
+        doc.setFontSize(10); doc.setFont("helvetica", "normal");
+        doc.text("Solusi Perjalanan Ibadah Umrah Amanah & Profesional", 20, 33);
+
+        // Paket Section
+        doc.setTextColor(30,30,30); doc.setFontSize(16); doc.setFont("helvetica", "bold");
+        doc.text(`SURAT PENAWARAN: PAKET ${p.name}`, 20, 60);
+        doc.setDrawColor(197, 160, 89); doc.setLineWidth(1); doc.line(20, 63, 50, 63);
+
+        // Info Table (Web Style)
+        doc.setFillColor(250, 250, 250); doc.rect(20, 70, 170, 45, 'F');
+        doc.setFontSize(10); doc.setTextColor(80, 80, 80);
+        doc.text("MASKAPAI", 25, 80); doc.text("HOTEL MEKKAH", 80, 80); doc.text("HOTEL MADINAH", 140, 80);
+        doc.setTextColor(0,0,0); doc.setFont("helvetica", "bold");
+        doc.text(p.air, 25, 88); doc.text(p.hMek, 80, 88); doc.text(p.hMad, 140, 88);
+
+        // Price Table
+        doc.setFontSize(12); doc.text("ESTIMASI HARGA PER PAX", 20, 130);
+        doc.setFillColor(197, 160, 89); doc.rect(20, 135, 170, 10, 'F');
+        doc.setTextColor(255,255,255); doc.setFontSize(10);
+        doc.text("TIPE KAMAR", 30, 141); doc.text("KAPASITAS", 90, 141); doc.text("HARGA (IDR)", 150, 141);
+
+        doc.setTextColor(0,0,0); doc.setFont("helvetica", "normal");
+        doc.text("QUAD ROOM", 30, 155); doc.text("4 Orang", 90, 155); doc.text(fmt(p.jualQ), 150, 155);
+        doc.text("TRIPLE ROOM", 30, 165); doc.text("3 Orang", 90, 165); doc.text(fmt(p.jualT), 150, 165);
+        doc.text("DOUBLE ROOM", 30, 175); doc.text("2 Orang", 90, 175); doc.text(fmt(p.jualD), 150, 175);
+        
+        doc.setDrawColor(230, 230, 230); doc.line(20, 185, 190, 185);
+
+        // Footer
+        doc.setFontSize(8); doc.setTextColor(150,150,150);
+        doc.text("Catatan: Harga dapat berubah sewaktu-waktu mengikuti kebijakan Visa & Maskapai.", 20, 200);
+        doc.save(`Penawaran_Firdaus_${p.name}.pdf`);
     }
 
-    // Auto Load
-    const saved = localStorage.getItem('firdaus_v13_8');
-    if(saved) {
-        const d = JSON.parse(saved);
-        document.getElementById('ks').value = d.ks; document.getElementById('ku').value = d.ku;
-        document.getElementById('tk').value = d.tk; document.getElementById('vs').value = d.vs;
-        document.getElementById('hh').value = d.hh; document.getElementById('hd').value = d.hd;
-        document.getElementById('nM').value = d.nM; document.getElementById('nD').value = d.nD;
-        packages = d.packages; rooms = d.rooms; activeIdx = d.activeIdx;
-    }
     saveAndCalc();
 </script>
 </body>
